@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from "react-redux";
-import { changeName, changeAge } from "./store";
-import { addCount, subCount } from "./store/userSlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { changeName, changeAge } from './store';
+import { addCount, subCount } from './store/userSlice';
 
 // createSlice은 useSelector을 이용해서 받아옴
 

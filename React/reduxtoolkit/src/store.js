@@ -1,6 +1,6 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-import { user2 } from "./store/userSlice";
+import { user2 } from './store/userSlice';
 
 // createSlice 만들고 configureStore에 등록함
 // createSlice안인 reducers안에 state변경하는 함수를 만들어줘서 그 만든 함수를 export함.
@@ -9,10 +9,10 @@ import { user2 } from "./store/userSlice";
 // 아래 configureStore에 담아 사용하기 위해 변수에 저장
 let user = createSlice({
   // state 3개 등록가능.
-  name: "user",
+  name: 'user',
 
   // 스테이트의 초기값
-  initialState: { name: "Jun", age: 1 },
+  initialState: { name: 'Jun', age: 1 },
 
   // useState의 setState랑 비슷한역할
   reducers: {
@@ -22,7 +22,7 @@ let user = createSlice({
       //  return { name: "young", age: 100 };
 
       // 아래처럼 객체안의 name키의 값만 변경할 수 있음.
-      state.name = "young";
+      state.name = 'young';
     },
   },
 });
