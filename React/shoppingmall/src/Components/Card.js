@@ -1,8 +1,4 @@
-import React, { useState } from "react";
-import { shoes } from "../DataList";
-
-export default function Card() {
-  const [shoesData, setShoesData] = useState(shoes);
+export default function Card({ shoesData }) {
   return (
     <>
       {shoesData.map((item) => {

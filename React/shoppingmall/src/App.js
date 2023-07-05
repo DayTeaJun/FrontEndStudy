@@ -1,8 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import Card from "./Components/Card";
+import { shoes } from "./DataList";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
+  const [shoesData, setShoesData] = useState(shoes);
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -15,7 +19,11 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      <Card />
+      <Routes>
+        <Route path="/" element={<Card shoesData={shoesData} />} />
+        <Route path="/detail" element={<div>상세페이지</div>} />
+        <Route path="/about" element={<div>어바웃페이지</div>} />
+      </Routes>
     </>
   );
 }
