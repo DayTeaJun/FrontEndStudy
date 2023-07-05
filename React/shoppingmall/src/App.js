@@ -1,10 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { shoes } from "./DataList";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import React, { useState } from "react";
+import Card from "./Components/Card";
 
 function App() {
-  const [shoesData, setShoesData] = useState(shoes);
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -17,26 +15,7 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      {shoesData.map((item, index) => {
-        return (
-          <>
-            <div className="container" key={item.id}>
-              <div className="row">
-                <div className="col-md-4">
-                  <img
-                    src={`https://codingapple1.github.io/shop/shoes${
-                      item.id + 1
-                    }.jpg`}
-                    width="80%"
-                  />
-                  <h4>{item.title}</h4>
-                  <p>{item.content}</p>
-                </div>
-              </div>
-            </div>
-          </>
-        );
-      })}
+      <Card />
     </>
   );
 }
