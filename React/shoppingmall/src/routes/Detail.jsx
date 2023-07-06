@@ -8,7 +8,7 @@ const Box = styled.div`
 `;
 
 const YellowBtn = styled.button`
-  background: #b8b8b8;
+  background: ${(props) => props.bg};
   border: none;
   border-radius: 5px;
   color: white;
@@ -37,7 +37,7 @@ export default function Detail({ shoes }) {
           <p>{findItem.price}원</p>
           <button className="btn btn-danger">주문하기</button>
           <Box>
-            <YellowBtn>버튼</YellowBtn>
+            <YellowBtn bg="skyblue">버튼</YellowBtn>
           </Box>
         </div>
       </div>
