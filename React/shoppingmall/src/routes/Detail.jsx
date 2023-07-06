@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Box = styled.div`
   padding: 20px;
-  color: grey;
+  background-color: ${(props) => (props.bg == "yellow" ? "yellow" : "white")};
 `;
 
 const YellowBtn = styled.button`
@@ -17,8 +17,15 @@ const YellowBtn = styled.button`
 
 export default function Detail({ shoes }) {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   // 기존 상품순서를 변경했을경우 상세페이지가 불규칙해진 것을 find 메서드를 통해 막음
   const findItem = shoes.find((item) => item.id == id);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  });
 
   return (
     <div className="container">
@@ -40,6 +47,7 @@ export default function Detail({ shoes }) {
             <YellowBtn bg="skyblue">버튼</YellowBtn>
           </Box>
         </div>
+        {isLoading && <Box bg="yellow">노랑</Box>}
       </div>
     </div>
   );
