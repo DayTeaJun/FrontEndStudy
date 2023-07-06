@@ -18,14 +18,28 @@ const YellowBtn = styled.button`
 export default function Detail({ shoes }) {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [inputText, setInputText] = useState("");
   // 기존 상품순서를 변경했을경우 상세페이지가 불규칙해진 것을 find 메서드를 통해 막음
   const findItem = shoes.find((item) => item.id == id);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-  });
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const handleChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  useEffect(() => {
+    if (isNaN(inputText) == true) {
+      alert("그러지마세요");
+    }
+  }, [inputText]);
 
   return (
     <div className="container">
@@ -48,6 +62,7 @@ export default function Detail({ shoes }) {
           </Box>
         </div>
         {isLoading && <Box bg="yellow">노랑</Box>}
+        <input type="text" value={inputText} onChange={handleChange} />
       </div>
     </div>
   );
