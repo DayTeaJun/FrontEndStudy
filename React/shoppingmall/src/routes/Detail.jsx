@@ -1,5 +1,19 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { styled } from "styled-components";
+
+const Box = styled.div`
+  padding: 20px;
+  color: grey;
+`;
+
+const YellowBtn = styled.button`
+  background: #b8b8b8;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 20px;
+`;
 
 export default function Detail({ shoes }) {
   const { id } = useParams();
@@ -22,6 +36,9 @@ export default function Detail({ shoes }) {
           <p>{findItem.content}</p>
           <p>{findItem.price}원</p>
           <button className="btn btn-danger">주문하기</button>
+          <Box>
+            <YellowBtn>버튼</YellowBtn>
+          </Box>
         </div>
       </div>
     </div>
