@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
+import "./Detail.css";
 
 const Box = styled.div`
   padding: 20px;
@@ -92,5 +93,27 @@ export default function Detail({ shoes }) {
 }
 
 const Tab = ({ tab }) => {
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab];
+  const [fade, setFade] = useState("");
+
+  // Q. setTimeout 왜 씁니까
+  // 리액트 18버전 이상부터는 automatic batch 라는 기능이 생겼습니다.
+  // state 변경함수들이 연달아서 여러개 처리되어야한다면
+  // state 변경함수를 다 처리하고 마지막에 한 번만 재렌더링됩니다.
+  // 그래서 'end' 로 변경하는거랑 ' ' 이걸로 변경하는거랑 약간 시간차를 뒀습니다.
+  // 찾아보면 setTimeout 말고 flushSync() 이런거 써도 될 것 같기도 합니다. automatic batching을 막아줍니다.
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      setFade("");
+    };
+  }, [tab]);
+
+  return (
+    <div className={"start " + fade}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+    </div>
+  );
 };
