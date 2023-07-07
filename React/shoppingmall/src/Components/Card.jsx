@@ -2,6 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 import { styled } from "styled-components";
 
+const Wrapper = styled.section`
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Btn = styled.button`
   padding: 10px 5px;
   background-color: skyblue;
@@ -30,14 +37,18 @@ export default function Card({ shoesData }) {
   };
 
   return (
-    <>
+    <Wrapper>
       {!isLoading && (
         <>
           <span>로딩중</span>
         </>
       )}
       {count <= 3 ? (
-        <Btn type="button" onClick={() => axiosData(count)}>
+        <Btn
+          className="container"
+          type="button"
+          onClick={() => axiosData(count)}
+        >
           나와라얍
         </Btn>
       ) : null}
@@ -82,6 +93,6 @@ export default function Card({ shoesData }) {
             </>
           );
         })}
-    </>
+    </Wrapper>
   );
 }
