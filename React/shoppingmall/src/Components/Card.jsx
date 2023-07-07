@@ -12,23 +12,36 @@ const Btn = styled.button`
 
 export default function Card({ shoesData }) {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [count, setCount] = useState(2);
+
+  const axiosData = async (count) => {
+    setIsLoading(false);
+    const res = await axios.get(
+      `https://codingapple1.github.io/shop/data${count}.json`
+    );
+    const resData = res.data;
+    console.log(resData);
+    setCount((prev) => {
+      return prev + 1;
+    });
+    setIsLoading(true);
+    setData(resData);
+  };
 
   return (
     <>
-      <Btn
-        type="button"
-        onClick={async () => {
-          const res = await axios.get(
-            "https://codingapple1.github.io/shop/data2.json"
-          );
-          const resData = res.data;
-          console.log(resData);
-          setData(resData);
-        }}
-      >
-        나와라얍
-      </Btn>
-      {shoesData.map((item) => {
+      {!isLoading && (
+        <>
+          <span>로딩중</span>
+        </>
+      )}
+      {count <= 3 ? (
+        <Btn type="button" onClick={() => axiosData(count)}>
+          나와라얍
+        </Btn>
+      ) : null}
+      {/* {shoesData.map((item) => {
         return (
           <>
             <div className="container" key={item.id}>
@@ -47,8 +60,8 @@ export default function Card({ shoesData }) {
             </div>
           </>
         );
-      })}
-      {data.length !== 0 &&
+      })} */}
+      {isLoading &&
         data.map((item) => {
           return (
             <>
@@ -57,7 +70,7 @@ export default function Card({ shoesData }) {
                   <div className="col-md-4">
                     <img
                       src={`https://codingapple1.github.io/shop/shoes${
-                        item.id + 1
+                        item.id - 1
                       }.jpg`}
                       width="80%"
                     />
@@ -66,11 +79,9 @@ export default function Card({ shoesData }) {
                   </div>
                 </div>
               </div>
-              ;
             </>
           );
         })}
-      ;
     </>
   );
 }
