@@ -8,6 +8,8 @@ import Detail from "./routes/Detail";
 import About from "./routes/About";
 import Event from "./routes/Event";
 
+export const Context1 = React.createContext();
+
 function App() {
   const [shoesData, setShoesData] = useState(shoes);
   const navigate = useNavigate();
