@@ -24,6 +24,7 @@ export default function Detail({ shoes }) {
   // 기존 상품순서를 변경했을경우 상세페이지가 불규칙해진 것을 find 메서드를 통해 막음
   const findItem = shoes.find((item) => item.id == id);
   const [tab, setTab] = useState(0);
+  const [fade2, setFade2] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,6 +32,14 @@ export default function Detail({ shoes }) {
     }, 2000);
     return () => {
       clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    setFade2("end");
+
+    return () => {
+      setFade2("");
     };
   }, []);
 
@@ -45,7 +54,7 @@ export default function Detail({ shoes }) {
   }, [inputText]);
 
   return (
-    <div className="container">
+    <div className={"container start " + fade2}>
       <div className="row">
         <div className="col-md-6">
           <img

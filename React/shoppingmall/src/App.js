@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import Card from "./Components/Card";
 import { shoes } from "./DataList";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Detail from "./routes/Detail";
 import About from "./routes/About";
@@ -12,6 +12,7 @@ export const Context1 = React.createContext();
 
 function App() {
   const [shoesData, setShoesData] = useState(shoes);
+  const [stock, setStock] = useState([10, 11, 12]);
   const navigate = useNavigate();
 
   return (
@@ -51,6 +52,11 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
+
+      <Context1.Provider value={{ stock, shoes }}>
+        <Detail shoes={shoes} />
+      </Context1.Provider>
+
       <Routes>
         <Route path="*" element={<div>404</div>} />
         <Route path="/" element={<Card shoesData={shoesData} />} />
