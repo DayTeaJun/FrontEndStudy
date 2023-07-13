@@ -53,9 +53,9 @@ function App() {
         </Container>
       </Navbar>
 
-      <Context1.Provider value={{ stock, shoes }}>
+      {/* <Context1.Provider value={{ stock, shoes }}>
         <Detail shoes={shoes} />
-      </Context1.Provider>
+      </Context1.Provider> */}
 
       <Routes>
         <Route path="*" element={<div>404</div>} />
