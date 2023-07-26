@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>document</title>
+  </head>
+  <body>
+    <h1>hello react clone!!!</h1>
+    <div id="root"></div>
+
+    <!-- <ul class="list">
+      <li>강아지</li>
+      <li>고양이</li>
+      <li>비둘기</li>
+    </ul>
+
+    <script>
+      // 리액트에서 실제 돔을 가상 돔으로 추상화한 것 (위의 ul)
+      const tag = {
+        tag: "ul",
+        props: {
+          className: "list",
+        },
+        children: [
+          {
+            tag: "li",
+            props: {},
+            children: ["강아지"],
+          },
+          {
+            tag: "li",
+            props: {},
+            children: ["고양이"],
+          },
+          {
+            tag: "li",
+            props: {},
+            children: ["비둘기"],
+          },
+        ],
+      };
+    </script> -->
+
+    <!-- <script>
+      const ul = document.querySelector("ul");
+      const items1 = ul.getElementsByTagName("li");
+      const items2 = ul.querySelectorAll("li");
+
+      console.log(items1); // HTMLCollection, liveDom 으로 실시간 변경사항 적용
+      console.log(items2); // NodeList, 실시간 변경사항 반영 안됨
+      // 위 두개 비교 : https://www.notion.so/paullabworkspace/12-DOM-Document-Object-Model-03a6e85a71804d02b09c68aa2bec1953
+
+      ul.append(document.createElement("li"));
+      // items1 console.log를 해보면 4개로 찍힘, HTMLCollection 실시간 반영
+
+      document.createTextNode("hello--"); // 텍스트 추가하는 dom
+      innerHTML = "<h1>" + items1 + "</h1>";
+      // 위의 내용들은 너무 번거롭다. -> 그래서 앵귤러 프레임워크가 나옴
+      // -> 그 다음 또 리액트가 나옴 (리액트는 기존의 DOM API를 대체하기 위해 만듦)
+    </script> -->
+
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
