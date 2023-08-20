@@ -2,7 +2,7 @@
 // tsc -w 입력해두면 자동으로 계속해서 변환됨 (필수)
 // 위의 내용을 컴파일하는 옵션 설정은 tsconfig.json 에서 함
 
-let 이름: string = "kim"; // 타입을 정의할 수 있음
+let naming: string = "kim"; // 타입을 정의할 수 있음
 // 이름 = 123; // 다음과 같이 문자형으로 정한 것을 숫자형으로 하면 오류가 나고 알려줌
 let 배열: string[] = ["kim", "park"]; // 이 배열이라는 변수엔 무조건 string이 담긴 array만 들어올 수 있도록 함.
 let 객체: { name: string } = { name: "kim" }; // 객체변수는 무조건 객체이고, 안에 name의 값은 무조건 문자열만 담기도록 함
