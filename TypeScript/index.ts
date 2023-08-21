@@ -40,3 +40,21 @@ class User {
     this.name = name;
   }
 }
+
+let 회원들 = "park"; // 타입스크립트는 타입지정 문법을 생략해도 자동으로 타입이 지정된다.
+
+// 해보기
+let 내이름: string = "jun";
+let 내나이: number = 25;
+let 출생지역: string = "부산";
+
+let 좋아하는가수: { song: string; singer: string } = {
+  song: "도쿄플래시",
+  singer: "바운디",
+};
+
+let project: { member: string[]; days: number; started: boolean } = {
+  member: ["kim", "park"],
+  days: 30,
+  started: true,
+};
