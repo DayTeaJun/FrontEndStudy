@@ -60,7 +60,7 @@ function removeDash(x: string): number {
 }
 
 type CutZeroType = (a: string) => string;
-type RemoveType = (a: string) => void;
+type RemoveType = (a: string) => number;
 const combine = (a: string, b: CutZeroType, c: RemoveType) => {
   console.log(c(b(a)));
 };
