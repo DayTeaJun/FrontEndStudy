@@ -1,3 +1,4 @@
+"use strict";
 // union type 타입 2개 이상 합친 새로운 타입
 var 회원 = 123;
 회원 = true;

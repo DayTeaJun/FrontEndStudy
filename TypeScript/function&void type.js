@@ -1,3 +1,4 @@
+"use strict";
 function 함수2(x) {
     // 파라미터, return 값 타입지정 가능
     return x * 2;

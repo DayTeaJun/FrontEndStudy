@@ -1,3 +1,4 @@
+"use strict";
 // 화살표함수에서 파리미터는 string에 리턴값은 number인 type alias
 // 함수 type alias를 부착하려면 함수표현식 사용
 var 함수12 = function () {

@@ -1,3 +1,4 @@
+"use strict";
 var 이름; // Literal types 내가 정한 문자만 들어올 수 있게해줌
 이름 = "kim";
 이름 = "jun"; // 다른건 안됨

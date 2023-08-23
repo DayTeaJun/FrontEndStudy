@@ -1,3 +1,4 @@
+"use strict";
 var 동물 = 123; // 아래와 같음
 var 동물2 = { name: "kim", age: 20 }; // 아래와 같음
 // let 동물2 : { name : string, age : number } = {name: 'kim', age:20}

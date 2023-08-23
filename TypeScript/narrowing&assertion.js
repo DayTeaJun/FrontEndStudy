@@ -1,3 +1,4 @@
+"use strict";
 // type이 아직 하나로 확정되지 않았을 경우 type Narrowing 사용
 function 함수7(x) {
     if (typeof x === "string") {
