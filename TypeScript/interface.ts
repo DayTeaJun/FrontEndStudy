@@ -39,3 +39,43 @@ interface Student2 {
 type Dog = { name: string };
 type Hotdog = { name: number } & Dog; // 미리 에러가 나지 않음
 let 개냥이: Hotdog = { name: "kim" }; // 사용할 때 에러가 남 (&은 합치는게 아니라 왼쪽 오른쪽 둘 다 만족하는 타입이기 때문)
+
+// 해보기
+interface Product {
+  brand: string;
+  serialNumber: number;
+  model: string[];
+}
+let 상품: Product = {
+  brand: "Samsung",
+  serialNumber: 1360,
+  model: ["TV", "phone"],
+};
+
+interface Basket {
+  product: string;
+  price: number;
+}
+let 장바구니: Basket[] = [
+  { product: "청소기", price: 7000 },
+  { product: "삼다수", price: 800 },
+];
+
+interface Card extends Basket {
+  card: boolean;
+}
+let 장바구니2: Card = { product: "청소기", price: 7000, card: false };
+
+interface MathOb {
+  plus: (a: number, b: number) => number;
+  minus: (a: number, b: number) => number;
+}
+
+let MathPM: MathOb = {
+  plus(a, b) {
+    return a + b;
+  },
+  minus(a, b) {
+    return a - b;
+  },
+};
