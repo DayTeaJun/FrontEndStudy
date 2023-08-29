@@ -42,6 +42,8 @@ type Bike = {
 function 함수(x: Car2 | Bike) {
   if (x.wheel === "4개") {
     console.log("x는 Car타입임");
+  } else {
+    console.log("x는 Bike타입임");
   }
 }
 // 논리적으로 이 타입인지 특정지을 수 있으면 narrowing으로 인정
