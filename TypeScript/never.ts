@@ -1,5 +1,5 @@
 // fucntion return 값에 붙일 수 있는 never type
-function 함수(): never {
+function 함수13(): never {
   // 조건 1. return 값이 없어야함
   // 조건 2. endpoint가 없어야함
   // (endpoint가 없는 함수 (함수실행이 끝나지 않는 함수))
@@ -20,7 +20,22 @@ function 함수2(parameter: string) {
   }
 }
 // never타입 등장 경우 2
+// 함수 표현식이 아무것도 return 하지 않는 경우 never타입으로 자동 return 타입 할당
 let 함수10 = () => {
-  throw new Error(); // undefined도 아무것도 return되지 않음 , 그래서 never타입이 된다
+  // undefined도 아무것도 return되지 않음 , 그래서 never타입이 된다
+  throw new Error();
 };
+
+// 함수 선언문이 아무것도 return 하지 않는 경우 void타입이 자동 return 타입 할당
+function 함수11() {
+  throw new Error();
+}
+// never타입 등장 경우 3
+// tsconfig.json에서 strict 옵션을 켜둘 경우
+// 함부로 any 타입을 지정해주지 않는 경우가 있음
+// 그럴 때 array 같은거 대충 타입지정 안하고 만들면
+let arr3 = [];
+// 원래는 any[] 이런 타입이 되는데 any를 가질 수 없어서
+// never[] 이런 타입이 발견되기도 함
+
 // 결과적으로 never타입은 void타입이 있기 때문에 쓸일은 없지만 어쩌다 등장할 경우가 있음 그때 왜 등장했는지에 이해만 하면된다.
