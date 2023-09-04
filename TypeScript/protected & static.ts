@@ -55,3 +55,55 @@ console.log(철2수);
 User8.skill = "ts";
 let 철3수 = new User8();
 console.log(철3수);
+
+// 해보기
+class User9 {
+  private static x = 10;
+  public static y = 20;
+  protected z = 30;
+}
+// 위 코드 해설
+// 1. class 필드값은 원래 모든 User9의 자식들에게 물려주는 속성이지만, x와 y에는 static 키워드가 붙었기 때문에,
+// 자식에서 사용이 불가하여 부모에서 접근 가능(User9.x)
+// 2. private static x는 private로 인해 class 내부에서만 수정 가능 (자식들이 수정불가 하고 class 내부의 함수를 이용하는 방법)
+// 3. public static y는 public로 인해 class 내부 외부 상관없이 수정가능 (public이 기본속성이라 없어도 똑같이 동작함)
+// 4. protected z는 private와 유사하게 class 내부에서만 사용 가능하지만 약간 범위가 넓어서 extends로 복사한 class 내부에서도 사용할 수 있음
+
+class User10 {
+  private static x = 10;
+  public static y = 20;
+
+  addOne(a: number): void {
+    // static이기 때문에 this를 사용하지 않아도 됨
+    User10.x += a;
+    console.log(User10.x);
+  }
+}
+const newUser10 = new User10();
+
+newUser10.addOne(3); // 13
+newUser10.addOne(4); // 17
+
+class Square2 {
+  constructor(
+    public width: number,
+    public height: number,
+    public color: string
+  ) {}
+  draw() {
+    let a = Math.random();
+    let square = `<div style="position:relative;
+    top:${a * 400}px;
+    left:${a * 400}px;
+    width:${this.width}px;
+    height:${this.height}px;
+    background:${this.color}"></div>`;
+    document.body.insertAdjacentHTML("beforeend", square);
+  }
+}
+
+let 네모2 = new Square2(30, 30, "red");
+네모2.draw();
+네모2.draw();
+네모2.draw();
+네모2.draw();

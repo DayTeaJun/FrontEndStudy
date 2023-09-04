@@ -89,3 +89,51 @@ console.log(철2수);
 User8.skill = "ts";
 var 철3수 = new User8();
 console.log(철3수);
+// 해보기
+var User9 = /** @class */ (function () {
+    function User9() {
+        this.z = 30;
+    }
+    User9.x = 10;
+    User9.y = 20;
+    return User9;
+}());
+// 위 코드 해설
+// 1. class 필드값은 원래 모든 User9의 자식들에게 물려주는 속성이지만, x와 y에는 static 키워드가 붙었기 때문에,
+// 자식에서 사용이 불가하여 부모에서 접근 가능(User9.x)
+// 2. private static x는 private로 인해 class 내부에서만 수정 가능 (자식들이 수정불가 하고 class 내부의 함수를 이용하는 방법)
+// 3. public static y는 public로 인해 class 내부 외부 상관없이 수정가능 (public이 기본속성이라 없어도 똑같이 동작함)
+// 4. protected z는 private와 유사하게 class 내부에서만 사용 가능하지만 약간 범위가 넓어서 extends로 복사한 class 내부에서도 사용할 수 있음
+var User10 = /** @class */ (function () {
+    function User10() {
+    }
+    User10.prototype.addOne = function (a) {
+        // static이기 때문에 this를 사용하지 않아도 됨
+        User10.x += a;
+        console.log(User10.x);
+    };
+    User10.x = 10;
+    User10.y = 20;
+    return User10;
+}());
+var newUser10 = new User10();
+newUser10.addOne(3); // 13
+newUser10.addOne(4); // 17
+var Square2 = /** @class */ (function () {
+    function Square2(width, height, color) {
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
+    Square2.prototype.draw = function () {
+        var a = Math.random();
+        var square = "<div style=\"position:relative;\n    top:".concat(a * 400, "px;\n    left:").concat(a * 400, "px;\n    width:").concat(this.width, "px;\n    height:").concat(this.height, "px;\n    background:").concat(this.color, "\"></div>");
+        document.body.insertAdjacentHTML("beforeend", square);
+    };
+    return Square2;
+}());
+var 네모2 = new Square2(30, 30, "red");
+네모2.draw();
+네모2.draw();
+네모2.draw();
+네모2.draw();
