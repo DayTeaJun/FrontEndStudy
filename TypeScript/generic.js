@@ -46,3 +46,30 @@ var 클래스 = /** @class */ (function () {
     }
     return 클래스;
 }()); // new로 인스턴스를 만들 때 타입파라미터를 집어넣을 수 있음
+function 문제1(x) {
+    console.log(x.length);
+}
+// 다른 풀이
+function 문제11(x) {
+    console.log(x.length);
+}
+문제1("hello");
+문제1(["kim", "park"]);
+// data라는 JSON 자료를 object { } 자료로 변환을 해서 return 해주는 함수를 만들기
+var data = '{"name" : "dog", "age" : 1 }';
+console.log(JSON.parse(data));
+function JsonData(a) {
+    return JSON.parse(a);
+}
+var parsing = JsonData(data);
+// <>안쓰고 as 사용해도 상관없긴 함(확장성이 없을뿐)
+console.log(parsing);
+// any타입을 여러 타입으로 재사용가능하게 수정
+var Person4 = /** @class */ (function () {
+    function Person4(a) {
+        this.name = a;
+    }
+    return Person4;
+}());
+var g = new Person4("어쩌구");
+g.name; // string 타입

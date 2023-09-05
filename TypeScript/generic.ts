@@ -52,3 +52,44 @@ let f = 함수5<string[]>(["100"]);
 class 클래스<MyType> {} // new로 인스턴스를 만들 때 타입파라미터를 집어넣을 수 있음
 // 타입변수에도 사용가능
 type Age<MypType> = MypType;
+
+// 해보기
+// 문자를 집어넣으면 문자의 갯수, array를 집어넣으면 array안의 자료 갯수를 콘솔창에 출력해주는 함수는 어떻게 만들까
+interface LengthCheck {
+  length: number;
+}
+function 문제1<MypType extends LengthCheck>(x: MypType) {
+  console.log(x.length);
+}
+// 다른 풀이
+function 문제11<MyType extends string | string[]>(x: MyType) {
+  console.log(x.length);
+}
+
+문제1<string>("hello");
+문제1<string[]>(["kim", "park"]);
+
+interface Animal4 {
+  name: string;
+  age: number;
+}
+
+// data라는 JSON 자료를 object { } 자료로 변환을 해서 return 해주는 함수를 만들기
+let data = '{"name" : "dog", "age" : 1 }';
+console.log(JSON.parse(data));
+function JsonData<MyType>(a: string): MyType {
+  return JSON.parse(a);
+}
+const parsing = JsonData<Animal4>(data);
+// <>안쓰고 as 사용해도 상관없긴 함(확장성이 없을뿐)
+console.log(parsing);
+
+// any타입을 여러 타입으로 재사용가능하게 수정
+class Person4<myType> {
+  name;
+  constructor(a: myType) {
+    this.name = a;
+  }
+}
+let g = new Person4<string>("어쩌구");
+g.name; // string 타입
