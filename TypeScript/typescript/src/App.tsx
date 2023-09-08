@@ -12,7 +12,11 @@ function App() {
   let [user, setUser] = useState("kim");
   // useState에 string 또는 number(또는 다른 타입들)를 넣고 싶을 때(Generic 문법 사용)
   let [user2, setUser2] = useState<string | number>("kim");
-  const 꺼내온거 = useSelector((state: RootState) => state);
+
+  // redux에 있는 useSelector로 redux내용을 꺼내옴
+  const 꺼내온거 = useSelector((state: RootState) => state); // 꺼내온거 에 redux에 있던 state를 넣음
+
+  // dispatch 타입 지정
   const dispatch: Dispatch = useDispatch(); // state 수정 요청
 
   return (
@@ -21,7 +25,7 @@ function App() {
         <h4>하이</h4>
         <Profile name="철수" age="20"></Profile>
       </div>
-      // redux에서 만든 state쓸 때
+      {/* redux에서 만든 state쓸 때 */}
       <div className="App">
         {꺼내온거.count}
         <button

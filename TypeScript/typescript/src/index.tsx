@@ -13,9 +13,11 @@ interface Counter {
   count: number;
 }
 
+// 모든 컴포넌트가 공유할 state
 const 초기값: Counter = { count: 0 };
-// 위에 지정해서 자동지정해줌(state), action (dispatch() 날릴때 넣는 파라미터)
+// 위에 지정(Counter)해서 자동지정해줌(state), action (dispatch() 날릴때 넣는 파라미터)
 function reducer(state = 초기값, action: { type: string }) {
+  // 미리 정의한 state 수정방법
   if (action.type === "증가") {
     return { count: state.count + 1 };
   } else if (action.type === "감소") {
