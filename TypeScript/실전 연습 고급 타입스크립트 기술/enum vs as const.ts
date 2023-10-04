@@ -33,3 +33,18 @@ Color2("Red");
 
 function Color3(c: ColorEnum) {}
 Color3(ColorEnum.Red);
+
+// as const indexing 예제
+import { Equal, Expect } from "../../helper";
+
+export const Color = {
+  Red: "red",
+  Green: "green",
+  Blue: "blue",
+} as const; // as const 사용하여 리터럴 타입 추론
+
+// 기존 value space를 typeof로 변환(type space)
+// indexing을 통해 값을 찾고, Union 타입으로 넘김
+type RedAndBlue = (typeof Color)["Red" | "Blue"];
+
+type tests = [Expect<Equal<RedAndBlue, "red" | "blue">>];
