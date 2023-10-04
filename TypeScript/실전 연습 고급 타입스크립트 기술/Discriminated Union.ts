@@ -23,6 +23,28 @@ enum C {
   b = "b",
   c = "c",
 }
+// enum 예시 추가
+// 열거형, 반드시 문자 or 숫자만 가능
+// 앞의 갚을 따름
+enum Direction {
+  Up = 1,
+  Down, // 2
+  Left, // 3
+  Right, // 4
+}
+
+// 앞에 암것도 없으면 0부터 ㄱㄱ
+enum Direction2 {
+  Up, // 0
+  Down, // 1
+  Left, // 2
+  Right, // 3
+}
+
+enum Example3 {
+  A = getUserInfo(),
+  B, // 오류! 앞에 나온 A가 계산된 멤버이므로 초기화가 필요합니다.
+}
 
 // Discriminated Union 활용 예시
 interface Square {
