@@ -48,3 +48,18 @@ export const Color = {
 type RedAndBlue = (typeof Color)["Red" | "Blue"];
 
 type tests = [Expect<Equal<RedAndBlue, "red" | "blue">>];
+
+// Object value들 타입 Union으로 변형
+import { Equal, Expect } from "../../helper";
+
+export const Color = {
+  Red: "red",
+  Green: "green",
+  Blue: "blue",
+} as const;
+
+// Color 에 있는 리터럴 타입들을 다 넣고 싶을 때, 일일이 추가하는게 아니고 추가가 될 때마다 자동으로 추가하기
+// keyof 키워드는 Color의 타입에서 모든 key에 접근하여 각각의 값을 뽑아오는 역할을 함
+type RedGreenBlueValue = (typeof Color)[keyof typeof Color];
+
+type tests = [Expect<Equal<RedGreenBlueValue, "red" | "blue" | "green">>];
