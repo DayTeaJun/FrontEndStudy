@@ -20,3 +20,29 @@ type tests = [
   Expect<Equal<BarType, number>>,
   Expect<Equal<BazType, boolean>>
 ];
+
+// Discriminated Union 의 indexing 문제
+import { Equal, Expect } from "../../helper";
+
+export type Event =
+  | {
+      type: "click";
+      event: MouseEvent;
+    }
+  | {
+      type: "focus";
+      event: FocusEvent;
+    }
+  | {
+      type: "keydown";
+      event: KeyboardEvent;
+    };
+
+// Discriminated Union은 결국 공통된 Union 값으로 구성되어 있기 때문에, Union에 구분자를 index하여 구분자들의 값을 찾을 수 있음
+// 각각의 구분자들을 Union으로 묶은 타입이 됨
+type EventType = Event["type"];
+
+// 반대로 이벤트로 묶는다면 event 값들이 추론이 됨
+type EventType2 = Event["event"];
+
+type tests = [Expect<Equal<EventType, "click" | "focus" | "keydown">>];
