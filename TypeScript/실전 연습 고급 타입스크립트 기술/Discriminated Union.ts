@@ -17,7 +17,7 @@ type A =
 
 type B = "a" | "b" | "c";
 
-// a가 string이라면 나머지도 string 타입이다
+// 여러 값들에 미리 이름을 정의하여 열거해 두고 사용하는 타입
 enum C {
   a = "a",
   b = "b",
