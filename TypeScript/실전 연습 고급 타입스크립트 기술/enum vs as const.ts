@@ -63,3 +63,17 @@ export const Color = {
 type RedGreenBlueValue = (typeof Color)[keyof typeof Color];
 
 type tests = [Expect<Equal<RedGreenBlueValue, "red" | "blue" | "green">>];
+
+// Array indexing
+import { Equal, Expect } from "../../helper";
+
+const rgb = ["red", "green", "blue"] as const;
+
+type RedAndBlue = (typeof rgb)[0 | 1];
+// array 에 number을 입력하면 모든 배열의 값이 추론되게 해줌 (객체의 keyof 와 같음)
+type RGB = (typeof rgb)[number];
+
+type tests = [
+  Expect<Equal<RedAndBlue, "red" | "green">>,
+  Expect<Equal<RGB, "red" | "green" | "blue">>
+];
