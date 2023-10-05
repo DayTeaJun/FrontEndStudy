@@ -45,3 +45,27 @@ type tests = [
     >
   >
 ];
+
+// 패턴을 갖고 있는 Object를 Template literals로 손쉽게 만들기
+type First = "user" | "post" | "comment";
+type Second = "Id" | "Name";
+// 밑의 객체 키의 같은점을 찾고, 두개를 묶어 패턴을 만들 수 있도록 타입을 분리.
+
+type ObjectOfKeys = Record<`${First}${Second}`, string>;
+// 유틸리티 Record를 이용하여 왼쪽의 키의 값들은 다 string을 갖게함
+
+type tests = [
+  Expect<
+    Equal<
+      ObjectOfKeys,
+      {
+        userId: string;
+        userName: string;
+        postId: string;
+        postName: string;
+        commentId: string;
+        commentName: string;
+      }
+    >
+  >
+];
