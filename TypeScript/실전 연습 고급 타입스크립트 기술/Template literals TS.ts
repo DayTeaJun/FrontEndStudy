@@ -21,3 +21,27 @@ type Routes = "/users" | "/users/:id" | "/products" | "/products/:id";
 type DynamicRoutes = Extract<Routes, `/${string}/:id`>;
 
 type tests = [Expect<Equal<DynamicRoutes, "/users/:id" | "/products/:id">>];
+
+// Template literals을 이용한 아이템 조합
+type Top = "t-shirt" | "shirts" | "jacket";
+
+type Bottom = "jeans" | "skirt" | "slacks";
+
+type Outfit = `${Top} with ${Bottom}`;
+// Top과 Bottom의 조합이 생성되어 모든게 섞인 조합이 생성된다.
+type tests = [
+  Expect<
+    Equal<
+      Outfit,
+      | "t-shirt with jeans"
+      | "t-shirt with skirt"
+      | "t-shirt with slacks"
+      | "shirts with jeans"
+      | "shirts with skirt"
+      | "shirts with slacks"
+      | "jacket with jeans"
+      | "jacket with skirt"
+      | "jacket with slacks"
+    >
+  >
+];
