@@ -52,7 +52,7 @@ type Second = "Id" | "Name";
 // 밑의 객체 키의 같은점을 찾고, 두개를 묶어 패턴을 만들 수 있도록 타입을 분리.
 
 type ObjectOfKeys = Record<`${First}${Second}`, string>;
-// 유틸리티 Record를 이용하여 왼쪽의 키의 값들은 다 string을 갖게함
+// 유틸리티 Record를 이용하여 왼쪽의 키의 값들은 다 string(오른쪽 타입)을 갖게함
 
 type tests = [
   Expect<
@@ -69,3 +69,38 @@ type tests = [
     >
   >
 ];
+
+// 유틸리티 타입 Uppercase
+type Event = `log_in` | "log_out" | "sign_up";
+
+type ObjectOfKeys = Record<Uppercase<Event>, string>;
+// Uppercase를 사용하면 대문자로 변경해줌.
+
+type tests = [
+  Expect<
+    Equal<
+      ObjectOfKeys,
+      {
+        LOG_IN: string;
+        LOG_OUT: string;
+        SIGN_UP: string;
+      }
+    >
+  >
+];
+
+// 테스트 문제 (url 파라미터에 알맞은 타입 넣기)
+export type Expect<T extends true> = T;
+export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
+  T
+>() => T extends Y ? 1 : 2
+  ? true
+  : false;
+
+function getProtocol(url: `${string}://${string}`) {
+  return url.split(":")[0];
+}
+
+getProtocol("http://typescriptlang.org");
+// @ts-expect-error
+getProtocol("typescriptlang.org");
