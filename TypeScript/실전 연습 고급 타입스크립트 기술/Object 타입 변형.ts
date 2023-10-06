@@ -88,3 +88,62 @@ type tests = [
     >
   >
 ];
+
+// Object union type을 object로 타입 변형
+type Route =
+  | {
+      route: "/";
+      search: {
+        page: string;
+        perPage: string;
+      };
+    }
+  | { route: "/about"; search: {} }
+  | { route: "/admin"; search: {} }
+  | { route: "/admin/users"; search: {} };
+
+type RoutesObject = {
+  // Route 객체에 있는 Union 타입을 전부 순회한뒤,
+  // 각 키를 as로 route키값으로 변경, 각 값은 search키값으로 변경함.
+  [R in Route as R["route"]]: R["search"];
+};
+
+type tests = [
+  Expect<
+    Equal<
+      RoutesObject,
+      {
+        "/": {
+          page: string;
+          perPage: string;
+        };
+        "/about": {};
+        "/admin": {};
+        "/admin/users": {};
+      }
+    >
+  >
+];
+
+// Object를 Tuple로 변형
+interface Values {
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+type ValuesAsUnionOfTuples = {
+  [K in keyof Values]: [K, Values[K]];
+}[keyof Values];
+// 각각의 Key에 해당하는 루프를 돌리면 뒤에 값만 추출된다.
+// 결과적으로, [K, Values[K]] 로 즉, 아래처럼 추출된다.
+// ["email", string] | ["firstName", string] | ["lastName", string]
+
+type tests = [
+  Expect<
+    Equal<
+      ValuesAsUnionOfTuples,
+      ["email", string] | ["firstName", string] | ["lastName", string]
+    >
+  >
+];
