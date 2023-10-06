@@ -28,3 +28,34 @@ type tests = [
     >
   >
 ];
+
+// Object value의 타입 변형
+interface Attributes {
+  firstName: string;
+  lastName: string;
+  age: number;
+}
+
+type Keys = keyof Attributes;
+// keyof 는 Attributes의 키들을 union 한다.
+// "first" | "lastName" | "age"
+
+type AttributeGetters = {
+  [k in keyof Attributes]: () => Attributes[k];
+  // K에 Attributes를 keyof로 Union을 만든 내용을 하나씩 루프를 돌면서
+  // 각 키의 값에 Attributes[k]를 넣는데 Attributes[K]는 각 키의 밸류 타입을 정의한다.
+};
+
+// 아래는 위의 내용이 맞는지에 대한 코드
+type tests = [
+  Expect<
+    Equal<
+      AttributeGetters,
+      {
+        firstName: () => string;
+        lastName: () => string;
+        age: () => number;
+      }
+    >
+  >
+];
