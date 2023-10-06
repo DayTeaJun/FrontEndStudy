@@ -59,3 +59,32 @@ type tests = [
     >
   >
 ];
+
+// Object Key의 타입 변형
+interface Attributes {
+  firstName: string;
+  lastName: string;
+  age: number;
+}
+
+type AttributeGetters = {
+  // key앞에 문자열 추가 및 변형을 하기 위해선 as를 붙인다.
+  // as + Template literals 를 이용하여, 기존 firstName에
+  // get + firstName이 되고,
+  // Capitalize 타입 유틸리티를 사용하여 첫 글자를 대문자로 수정한다.
+  [K in keyof Attributes as `get${Capitalize<K>}`]: () => Attributes[K];
+};
+
+// 위 내용의 결과가 맞는지 확인하는 코드
+type tests = [
+  Expect<
+    Equal<
+      AttributeGetters,
+      {
+        getFirstName: () => string;
+        getLastName: () => string;
+        getAge: () => number;
+      }
+    >
+  >
+];
