@@ -164,3 +164,31 @@ type tests = [
     Equal<TransformedFruit, "apple:red" | "banana:yellow" | "orange:orange">
   >
 ];
+
+// Object union -> string union 변형
+type Fruit =
+  | {
+      name: "apple";
+      color: "red";
+    }
+  | {
+      name: "banana";
+      color: "yellow";
+    }
+  | {
+      name: "orange";
+      color: "orange";
+    };
+
+type TransformedFruit = {
+  // type 에는 string number symbol이 와야하기 때문에
+  // Key에 name이나 color로 타입 에러를 발생시키지 않도록 함.
+  // 마지막으로 키가 K['name']으로 되었기 때문에 키에 접근하여 값을 가져옴
+  [K in Fruit as K["name"]]: `${K["name"]}:${K["color"]}`;
+}[Fruit["name"]];
+
+type tests = [
+  Expect<
+    Equal<TransformedFruit, "apple:red" | "banana:yellow" | "orange:orange">
+  >
+];
