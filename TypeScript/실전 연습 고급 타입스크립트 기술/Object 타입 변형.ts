@@ -192,3 +192,35 @@ type tests = [
     Equal<TransformedFruit, "apple:red" | "banana:yellow" | "orange:orange">
   >
 ];
+
+// object 타입 변형 통합 문제
+type Fruit =
+  | {
+      name: "apple";
+      color: "red";
+    }
+  | {
+      name: "banana";
+      color: "yellow";
+    }
+  | {
+      name: "orange";
+      color: "orange";
+    };
+
+type TransformedFruit = {
+  [K in Fruit as `${K["name"]}:${K["color"]}`]: `${K["name"]}`;
+};
+
+type tests = [
+  Expect<
+    Equal<
+      TransformedFruit,
+      {
+        "apple:red": "apple";
+        "banana:yellow": "banana";
+        "orange:orange": "orange";
+      }
+    >
+  >
+];
