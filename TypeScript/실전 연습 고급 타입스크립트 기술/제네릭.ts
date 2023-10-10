@@ -40,3 +40,34 @@ returnWhatIPassIn(true);
 returnWhatIPassIn({
   foo: "bar",
 });
+
+// 다수의 타입인자 제네릭
+const returnBothOfWhatIPassIn = <T1, T2>(params: { a: T1; b: T2 }) => {
+  // T1, T2로 다수의 타입 파리미터를 받게함 (다양한 타입을 받을 수 있음)
+  return {
+    first: params.a,
+    second: params.b,
+  };
+};
+
+it("Should return an object where a -> first and b -> second", () => {
+  const result = returnBothOfWhatIPassIn({
+    a: "a",
+    b: 1,
+  });
+
+  expect(result).toEqual({
+    first: "a",
+    second: 1,
+  });
+
+  type test1 = Expect<
+    Equal<
+      typeof result,
+      {
+        first: string;
+        second: number;
+      }
+    >
+  >;
+});
