@@ -11,3 +11,13 @@ const boolFunction = (bool: boolean) => bool;
 // 제네릭 사용 (위 여러개를 하나로 통합 가능)
 const genericFunction = <T>(arg: T) => arg;
 const result: number = genericFunction<number>(1);
+
+// 제네릭 기초
+const returnWhatIPassIn = <T>(t: T) => {
+  return t;
+};
+
+const one = returnWhatIPassIn(1);
+const matt = returnWhatIPassIn("matt");
+// 제네릭의 리턴은 받은 인자 그 자체로 number도 string도 아닌 1 "matt" 이다.
+type tests = [Expect<Equal<typeof one, 1>>, Expect<Equal<typeof matt, "matt">>];
