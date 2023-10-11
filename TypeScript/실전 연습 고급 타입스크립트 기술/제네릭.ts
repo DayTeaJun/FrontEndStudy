@@ -137,3 +137,28 @@ type tests = [
     >
   >
 ];
+
+// 제네릭 클래스
+// 클래스명 뒤에 제네릭 인자를 넣고 props를 통해 타입을 여러가지 형태로 변형할 수 있음
+export class Component<T> {
+  private props: T;
+
+  constructor(props: T) {
+    this.props = props;
+  }
+
+  getProps = () => this.props;
+}
+
+it("Should create an object containing props", () => {
+  // 아래 클래스 인스턴스를 생성할 때 인자에 따라 타입이 유동적으로 바뀌게 할 수 있음
+  const component = new Component({ a: 1, b: 2, c: 3 });
+
+  const result = component.getProps();
+
+  expect(result).toEqual({ a: 1, b: 2, c: 3 });
+
+  type tests = [
+    Expect<Equal<typeof result, { a: number; b: number; c: number }>>
+  ];
+});
