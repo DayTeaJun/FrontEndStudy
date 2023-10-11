@@ -109,3 +109,31 @@ type tests = [
     >
   >
 ];
+
+// 기본(default) 타입 인자
+// 함수 파라미터에 디폴트 값을 넣는 것처럼 기본 값을 넣어 줄 수 있음
+type CreateDataShape<TData, TError = undefined> = {
+  data: TData;
+  error: TError;
+};
+
+type tests = [
+  Expect<
+    Equal<
+      CreateDataShape<string>,
+      {
+        data: string;
+        error: undefined;
+      }
+    >
+  >,
+  Expect<
+    Equal<
+      CreateDataShape<boolean, SyntaxError>,
+      {
+        data: boolean;
+        error: SyntaxError;
+      }
+    >
+  >
+];
