@@ -71,3 +71,41 @@ it("Should return an object where a -> first and b -> second", () => {
     >
   >;
 });
+
+// 다수의 타입인자 2
+// 위의 value space에서 화살표함수인 경우에는 함수앞에 붙여야하지만
+// 아래의 type space는 타입 이름 뒤에 붙여야한다.
+type CreateDataShape<T1, T2> = {
+  data: T1;
+  error: T2;
+};
+
+type tests = [
+  Expect<
+    Equal<
+      CreateDataShape<string, TypeError>,
+      {
+        data: string;
+        error: TypeError;
+      }
+    >
+  >,
+  Expect<
+    Equal<
+      CreateDataShape<number, Error>,
+      {
+        data: number;
+        error: Error;
+      }
+    >
+  >,
+  Expect<
+    Equal<
+      CreateDataShape<boolean, SyntaxError>,
+      {
+        data: boolean;
+        error: SyntaxError;
+      }
+    >
+  >
+];
