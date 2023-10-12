@@ -165,3 +165,31 @@ it("Should create an object containing props", () => {
     Expect<Equal<typeof result, { a: number; b: number; c: number }>>
   ];
 });
+
+// 타입 스페이스에서의 rest parameter
+// T의 타입문자를 함수로 제한하고 여러 인자가 들어와 지도록 rest parameter(...) 사용
+type GetParametersAndReturnType<T extends (...args: any) => any> = {
+  params: Parameters<T>;
+  returnValue: ReturnType<T>;
+};
+
+type tests = [
+  Expect<
+    Equal<
+      GetParametersAndReturnType<() => string>,
+      { params: []; returnValue: string }
+    >
+  >,
+  Expect<
+    Equal<
+      GetParametersAndReturnType<(s: string) => void>,
+      { params: [string]; returnValue: void }
+    >
+  >,
+  Expect<
+    Equal<
+      GetParametersAndReturnType<(n: number, b: boolean) => number>,
+      { params: [number, boolean]; returnValue: number }
+    >
+  >
+];
