@@ -193,3 +193,19 @@ type tests = [
     >
   >
 ];
+
+// 타입스페이스 empty object
+// extends를 빈 객체{} 로만 한정하면, null, undefined만 에러를 띄우고 나머지는 에러를 띄우지 않게 해준다.
+export type Maybe<T extends {}> = T;
+
+type tests = [
+  // @ts-expect-error
+  Maybe<null>,
+  // @ts-expect-error
+  Maybe<undefined>,
+
+  Maybe<string>,
+  Maybe<false>,
+  Maybe<0>,
+  Maybe<"">
+];
