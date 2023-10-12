@@ -139,11 +139,14 @@ type tests = [
 ];
 
 // 제네릭 클래스
-// 클래스명 뒤에 제네릭 인자를 넣고 props를 통해 타입을 여러가지 형태로 변형할 수 있음
+// 클래스명 뒤에 제네릭 타입 인자를 넣고 props를 통해 타입을 여러가지 형태로 변형할 수 있음
 export class Component<T> {
+  // 3. 아래와 마찬가지로 같은 타입이 들어왔기 때문에 T로 타입 지정
   private props: T;
 
+  // 1. 아래 인스턴스 만들 때의 인자 타입이 T에 대입이 된다.
   constructor(props: T) {
+    // 2. 위에 입력받은 props로 할당한다.
     this.props = props;
   }
 
