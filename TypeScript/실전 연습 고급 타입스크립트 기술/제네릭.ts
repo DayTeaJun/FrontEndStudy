@@ -223,3 +223,38 @@ makeEnum(["a", "b", "c"]);
 
 // 최소 한개 이상의 요소가 있어야 한다는 타입을 위에서 만들었기 때문에, 에러가 발생
 makeEnum([]);
+
+// Reduce 타입 파라미터 문제 2가지 방법
+const array = [
+  {
+    name: "Park",
+  },
+  {
+    name: "Kim",
+  },
+];
+
+// 1. 맨 아래 tests 코드의 Record<string, { name: string }> 조건을 그대로 복사해 reduce에 타입을 지정해도 된다.
+const obj = array.reduce<Record<string, { name: string }>>((accum, item) => {
+  accum[item.name] = item;
+  return accum;
+}, {});
+
+// 2. 또는, as(Assertion 타입 단언)를 이용해서 타입을 언제나 다음과 같은 타입으로 반환하겠다로 지정해도 된다.
+const obj2 = array.reduce((accum, item) => {
+  accum[item.name] = item;
+  return accum;
+}, {} as Record<string, { name: string }>);
+
+it("Should resolve to an object where name is the key", () => {
+  expect(obj).toEqual({
+    Park: {
+      name: "Park",
+    },
+    Kim: {
+      name: "Kim",
+    },
+  });
+
+  type tests = [Expect<Equal<typeof obj, Record<string, { name: string }>>>];
+});
