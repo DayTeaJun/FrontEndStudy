@@ -258,3 +258,21 @@ it("Should resolve to an object where name is the key", () => {
 
   type tests = [Expect<Equal<typeof obj, Record<string, { name: string }>>>];
 });
+
+// Fetch 함수 타입 문제
+// fetch에 받을 타입 인자를 T로 지정하여 여러 타입들을 받을 수 있도록 유동성있게 설정
+const fetchData = async <T>(url: string) => {
+  // data의 타입이 위에 타입 파라미터로 받게한 T로 타입을 재사용성있게 만듦
+  const data: T = await fetch(url).then((response) => response.json());
+  return data;
+};
+
+it("Should fetch data from an API", async () => {
+  // 결과적으로 타입인자에 name: string을 넣어 data 타입을 유동적으로 변경함
+  const data = await fetchData<{ name: string }>(
+    "https://swapi.dev/api/people/1"
+  );
+  expect(data.name).toEqual("Luke Skywalker");
+
+  type tests = [Expect<Equal<typeof data, { name: string }>>];
+});
