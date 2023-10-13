@@ -276,3 +276,12 @@ it("Should fetch data from an API", async () => {
 
   type tests = [Expect<Equal<typeof data, { name: string }>>];
 });
+
+// 타입스페이스의 조건 타입
+type YouSayGoodbyeAndISayHello<T> = T extends "hello" ? "goodbye" : "hello";
+// 타입스크립트의 삼항연산자는 extends를 이용하여 T의 오른쪽이 포함되는지에 따른 여부로 조건 타입을 설정할 수 있다.
+
+type tests = [
+  Expect<Equal<YouSayGoodbyeAndISayHello<"hello">, "goodbye">>,
+  Expect<Equal<YouSayGoodbyeAndISayHello<"goodbye">, "hello">>
+];
