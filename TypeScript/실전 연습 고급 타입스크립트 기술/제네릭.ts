@@ -209,3 +209,17 @@ type tests = [
   Maybe<0>,
   Maybe<"">
 ];
+
+// NonEmptyArray 타입 만들기
+// 아래에서 string을 넘겨주기 때문에 타입 인자 <T> 넣고
+// string 타입의 요소를 받고 최소 한개의 인자가 필요한 T와 spread array로 여러개까지 가능하게 변경
+type NonEmptyArray<T> = [T, ...Array<T>];
+
+export const makeEnum = (values: NonEmptyArray<string>) => {};
+
+// 최소 한개의 array가 있는지 확인하는 함수
+makeEnum(["a"]);
+makeEnum(["a", "b", "c"]);
+
+// 최소 한개 이상의 요소가 있어야 한다는 타입을 위에서 만들었기 때문에, 에러가 발생
+makeEnum([]);
