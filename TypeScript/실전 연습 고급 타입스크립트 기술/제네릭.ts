@@ -285,3 +285,18 @@ type tests = [
   Expect<Equal<YouSayGoodbyeAndISayHello<"hello">, "goodbye">>,
   Expect<Equal<YouSayGoodbyeAndISayHello<"goodbye">, "hello">>
 ];
+
+// 조건 타입에서 never(항상 오류거나 리턴 값을 절대로 내보내지 않는 리턴 타입)
+// 다중 삼항 연산자 사용
+type YouSayGoodbyeAndISayHello<T> = T extends "hello" | "goodbye"
+  ? T extends "hello"
+    ? "goodbye"
+    : "hello"
+  : never;
+
+type tests = [
+  Expect<Equal<YouSayGoodbyeAndISayHello<"hello">, "goodbye">>,
+  Expect<Equal<YouSayGoodbyeAndISayHello<"goodbye">, "hello">>,
+  Expect<Equal<YouSayGoodbyeAndISayHello<"alright pal">, never>>,
+  Expect<Equal<YouSayGoodbyeAndISayHello<1>, never>>
+];
