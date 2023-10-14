@@ -77,3 +77,19 @@ type tests = [
   Expect<Equal<RedAndBlue, "red" | "green">>,
   Expect<Equal<RGB, "red" | "green" | "blue">>
 ];
+
+// Template literals infer
+type Names = ["Junsuk Park", "Bill Evans", "Stan Getz", "Foo"];
+
+// Names 타입에서 각 요소의 마지막 단어만 추출하게 하기
+// 템플릿 리터럴을 사용하여 타입 파라미터 T를 첫단어 마지막 단어로 나누어 2개 이상으로 나누어진 요소가 있을 경우 마지막 단어를 리턴 없을 경우 never을 리턴한다.
+type GetSurname<T> = T extends `${infer FirstName} ${infer LastName}`
+  ? LastName
+  : never;
+
+type tests = [
+  Expect<Equal<GetSurname<Names[0]>, "Park">>,
+  Expect<Equal<GetSurname<Names[1]>, "Evans">>,
+  Expect<Equal<GetSurname<Names[2]>, "Getz">>,
+  Expect<Equal<GetSurname<Names[3]>, never>>
+];
