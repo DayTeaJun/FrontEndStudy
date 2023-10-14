@@ -352,3 +352,25 @@ type tests = [
   // should return never
   Expect<Equal<GetDataValue<string>, never>>
 ];
+
+// generics infer
+interface MyComplexInterface<Event, Context, Name, Point> {
+  getEvent: () => Event;
+  getContext: () => Context;
+  getName: () => Name;
+  getPoint: () => Point;
+}
+
+type Example = MyComplexInterface<
+  "click",
+  "window",
+  "my-event",
+  { x: 12; y: 14 }
+>;
+// 위 Example의 마지막 파라미터의 타입을 추론해보기
+// T에 extends로 MyComplexInterface의 파라미터들 중으로 조건을 걸고, 그중 마지막에 있는 파라미터를 T2로 infer을 사용하여 타입스크립트가 T2의 타입을 추론하여 마지막 파라미터를 반환한다. 4번째의 마지막 파라미터가 없다면 never을 반환한다.
+type GetPoint<T> = T extends MyComplexInterface<any, any, any, infer T2>
+  ? T2
+  : never;
+
+type tests = [Expect<Equal<GetPoint<Example>, { x: 12; y: 14 }>>];
