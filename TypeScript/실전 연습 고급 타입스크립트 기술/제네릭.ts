@@ -300,3 +300,34 @@ type tests = [
   Expect<Equal<YouSayGoodbyeAndISayHello<"alright pal">, never>>,
   Expect<Equal<YouSayGoodbyeAndISayHello<1>, never>>
 ];
+
+// 조건 타입으로 Object 키 새로 만들기
+interface Example {
+  name: string;
+  age: number;
+  id: string;
+  organisationId: string;
+  groupId: string;
+}
+
+type OnlyIdKeys<T> = {
+  // Key 조건을 extends로 템플릿 리터럴 사용하여 키 들중 뒤에 id 및 Id가 포함된 키만 골라야 하고 앞에는 string 타입이 올 수도 안 올 수도 있기 때문에 설정해준다.
+  // 앞의 조건이 충족하면 그대로 Key를 뽑고 아니면 배제시킨다.
+  // value는 넘겨준 T의 value를 접근하여 값을 그대로 나태내준다.
+  [K in keyof T as K extends `${string}${"id" | "Id"}` ? K : never]: T[K];
+  // never를 넣게 되면 오브젝트나 필드가 제외가 된다. (위의 타입만으로 특정 타입을 가진 키를 추출할 수 있다.)
+};
+
+type tests = [
+  Expect<
+    Equal<
+      OnlyIdKeys<Example>,
+      {
+        id: string;
+        organisationId: string;
+        groupId: string;
+      }
+    >
+  >,
+  Expect<Equal<OnlyIdKeys<{}>, {}>>
+];
