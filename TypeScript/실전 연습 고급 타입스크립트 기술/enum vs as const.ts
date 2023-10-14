@@ -122,3 +122,30 @@ type tests = [
     >
   >
 ];
+
+// 복잡한 조건 타입
+const parser1 = {
+  parse: () => 1,
+};
+
+const parser2 = () => "123";
+
+const parser3 = {
+  extract: () => true,
+};
+
+// 위의 3가지의 조건을 만족하는 타입을 만들기
+// 다중 삼항연산자를 이용하여 parser1,2,3 들이 포함된다면 그 포함된 것의 리턴값의 타입을 반환한다.
+type GetParserResult<T> = T extends { parse: () => infer T1 }
+  ? T1
+  : T extends () => infer T2
+  ? T2
+  : T extends { extract: () => infer T3 }
+  ? T3
+  : never;
+
+type tests = [
+  Expect<Equal<GetParserResult<typeof parser1>, number>>,
+  Expect<Equal<GetParserResult<typeof parser2>, string>>,
+  Expect<Equal<GetParserResult<typeof parser3>, boolean>>
+];
