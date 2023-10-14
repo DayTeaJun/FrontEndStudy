@@ -367,10 +367,82 @@ type Example = MyComplexInterface<
   "my-event",
   { x: 12; y: 14 }
 >;
-// 위 Example의 마지막 파라미터의 타입을 추론해보기
-// T에 extends로 MyComplexInterface의 파라미터들 중으로 조건을 걸고, 그중 마지막에 있는 파라미터를 T2로 infer을 사용하여 타입스크립트가 T2의 타입을 추론하여 마지막 파라미터를 반환한다. 4번째의 마지막 파라미터가 없다면 never을 반환한다.
+// 위 Example의 4번째 파라미터의 타입을 추론해보기
+// T에 extends로 MyComplexInterface의 파라미터들 중으로 조건을 걸고, 그중 4번째에 있는 파라미터를 T2로 infer을 사용하여 타입스크립트가 T2의 타입을 추론하여 4번째 파라미터를 반환한다. 4번째의 마지막 파라미터가 없다면 never을 반환한다.
 type GetPoint<T> = T extends MyComplexInterface<any, any, any, infer T2>
   ? T2
   : never;
 
 type tests = [Expect<Equal<GetPoint<Example>, { x: 12; y: 14 }>>];
+
+// Template literals infer
+type Names = ["Junsuk Park", "Bill Evans", "Stan Getz", "Foo"];
+
+// Names 타입에서 각 요소의 마지막 단어만 추출하게 하기
+// 템플릿 리터럴을 사용하여 타입 파라미터 T를 첫단어 마지막 단어로 나누어 2개 이상으로 나누어진 요소가 있을 경우 마지막 단어를 리턴 없을 경우 never을 리턴한다.
+type GetSurname<T> = T extends `${infer FirstName} ${infer LastName}`
+  ? LastName
+  : never;
+
+type tests = [
+  Expect<Equal<GetSurname<Names[0]>, "Park">>,
+  Expect<Equal<GetSurname<Names[1]>, "Evans">>,
+  Expect<Equal<GetSurname<Names[2]>, "Getz">>,
+  Expect<Equal<GetSurname<Names[3]>, never>>
+];
+
+// Next.js InferPropsFromSeverSideFuction 타입 만들기
+const getServerSideProps = async () => {
+  const data = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  const json: { title: string } = await data.json();
+  return {
+    props: {
+      json,
+    },
+  };
+};
+
+// getServerSideProps의 return 값인 props 값의 타입을 리턴하는 값을 추출
+// 타입 파리미터의 조건은 getServerSideProps는 함수기 때문에 함수 조건으로 추출하고, 비동기 함수이기 때문에 Promise의 리턴 값인 {props: infer TData}에서 TData를 infer을 사용하여 타입을 추론하게 한다.
+// 결과적으로 getServerSideProps 의 리턴 값에서 props의 값이 있으면 그 값의 타입을 반환하고, 없다면 never을 반환한다.
+type InferPropsFromServerSideFunction<T> = T extends () => Promise<{
+  props: infer TData;
+}>
+  ? TData
+  : never;
+
+type tests = [
+  Expect<
+    Equal<
+      InferPropsFromServerSideFunction<typeof getServerSideProps>,
+      { json: { title: string } }
+    >
+  >
+];
+
+// 복잡한 조건 타입
+const parser1 = {
+  parse: () => 1,
+};
+
+const parser2 = () => "123";
+
+const parser3 = {
+  extract: () => true,
+};
+
+// 위의 3가지의 조건을 만족하는 타입을 만들기
+// 다중 삼항연산자를 이용하여 parser1,2,3 들이 포함된다면 그 포함된 것의 리턴값의 타입을 반환한다.
+type GetParserResult<T> = T extends { parse: () => infer T1 }
+  ? T1
+  : T extends () => infer T2
+  ? T2
+  : T extends { extract: () => infer T3 }
+  ? T3
+  : never;
+
+type tests = [
+  Expect<Equal<GetParserResult<typeof parser1>, number>>,
+  Expect<Equal<GetParserResult<typeof parser2>, string>>,
+  Expect<Equal<GetParserResult<typeof parser3>, boolean>>
+];
