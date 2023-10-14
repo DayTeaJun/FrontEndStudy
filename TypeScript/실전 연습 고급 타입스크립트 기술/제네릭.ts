@@ -331,3 +331,24 @@ type tests = [
   >,
   Expect<Equal<OnlyIdKeys<{}>, {}>>
 ];
+
+// 유용한 Infer
+// 객체 data 의 값이 출력되도록 하고, 객체가 아니라면 never로 반환되게 함.
+// T가 data의 타입의 형태일 때, data안의 특정 타입을 리턴, 아니면 never리턴
+type GetDataValue<T> = T extends { data: infer T2 } ? T2 : never;
+// infer은 extends에서만 사용가능한 조건문에서 씀,
+// infer은 value타입이 어떤게 올지 모르지만 타입스크립트가 자동으로 추론하게 해줌 (만약 아래에 {data: 'hello'} 라면 T2를 'hello'로 추론 )
+
+type tests = [
+  Expect<Equal<GetDataValue<{ data: "hello" }>, "hello">>,
+  Expect<Equal<GetDataValue<{ data: { name: "hello" } }>, { name: "hello" }>>,
+  Expect<
+    Equal<
+      GetDataValue<{ data: { name: "hello"; age: 20 } }>,
+      { name: "hello"; age: 20 }
+    >
+  >,
+  // Expect that if you pass in string, it
+  // should return never
+  Expect<Equal<GetDataValue<string>, never>>
+];
