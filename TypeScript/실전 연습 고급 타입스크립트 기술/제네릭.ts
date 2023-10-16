@@ -446,3 +446,18 @@ type tests = [
   Expect<Equal<GetParserResult<typeof parser2>, string>>,
   Expect<Equal<GetParserResult<typeof parser3>, boolean>>
 ];
+
+// 제네릭 통합 테스트
+type UserPath = ["users", ":id"];
+type UserOrgPath = ["users", ":id", "orgs", ":orgId"];
+
+type ExtractPathParams<T extends string[]> = T extends [infer T2, ":id"]
+  ? { id: T2 }
+  : T extends [infer T2, ":id", infer T3, ":orgId"]
+  ? { id: T2; orgId: T3 }
+  : never;
+
+type tests = [
+  Expect<Equal<ExtractPathParams<UserPath>, { id: string }>>,
+  Expect<Equal<ExtractPathParams<UserOrgPath>, { id: string; orgId: string }>>
+];
