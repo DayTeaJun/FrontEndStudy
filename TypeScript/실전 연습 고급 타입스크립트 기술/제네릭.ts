@@ -440,6 +440,7 @@ type GetParserResult<T> = T extends { parse: () => infer T1 }
   : T extends { extract: () => infer T3 }
   ? T3
   : never;
+const value: GetParserResult<typeof parser1> = 2;
 
 type tests = [
   Expect<Equal<GetParserResult<typeof parser1>, number>>,
