@@ -71,3 +71,27 @@ describe("getHomePageFeatureFlags", () => {
     ];
   });
 });
+
+// Object Argument의 Key 타입 추론하기
+// const typedObjectKeys = (obj: unknown) => {
+//     return Object.keys(obj);
+// };
+
+// any를 넣은 이유는 숫자또는 다른 타입이 들어 올 수 있기 때문(여기서는 키만 뽑는 이유도 있음)
+// Record 에 들어 갈 수 있는 타입은 string, number, symbol 등 뿐이라 변경해줘야함
+// 어처피 TKey는 오브젝트 키들은 문자형이기 때문에 string으로 제한
+const typedObjectKeys = <TKey extends string>(obj: Record<TKey, any>) => {
+  return Object.keys(obj) as Array<TKey>;
+  // Object.keys()는 string을 리턴하는 함수이기 때문에 as로 아래에서 테스트코드에 있는 Array<"a" | "b">를 최종적으로 추론하게 만든다.
+};
+
+it("Should return the keys of the object", () => {
+  const result1 = typedObjectKeys({
+    a: 1,
+    b: 2,
+  });
+
+  expect(result1).toEqual(["a", "b"]);
+
+  type test = Expect<Equal<typeof result1, Array<"a" | "b">>>;
+});
