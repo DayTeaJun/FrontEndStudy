@@ -97,9 +97,14 @@ export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
   ? true
   : false;
 
-function getProtocol(url: `${string}://${string}`) {
-  return url.split(":")[0];
+// function getProtocol(url: `${string}://${string}`) {
+//   return url.split(":")[0];
+// }
+// 아래가 좀 더 직관적
+function getProtocol(url: `${"http" | "https"}://${string}`) {
+  return url.split(":")[0] as "http" | "https";
 }
+// as "http" | "https"를 사용하여 해당 값이 반드시 "http" 또는 "https" 중 하나임을 TypeScript에 명시적으로 알려줌
 
 getProtocol("http://typescriptlang.org");
 // @ts-expect-error
