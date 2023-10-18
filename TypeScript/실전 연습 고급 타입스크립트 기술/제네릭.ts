@@ -452,11 +452,13 @@ type tests = [
 type UserPath = ["users", ":id"];
 type UserOrgPath = ["users", ":id", "orgs", ":orgId"];
 
-type ExtractPathParams<T extends string[]> = T extends [infer T2, ":id"]
-  ? { id: T2 }
-  : T extends [infer T2, ":id", infer T3, ":orgId"]
-  ? { id: T2; orgId: T3 }
-  : never;
+type ExtractPathParams<T extends string[]> = {
+  [K in T[number] as K extends `:${infer P}` ? P : never]: string;
+};
+// 입력받은 배열 중 : 로 시작하는 문자열이 있을 경우 그대로 키에 넣고 없다면 never처리
+// 있을 경우 값은 string으로 처리한다.
+type Test = ExtractPathParams<UserPath>;
+type Test2 = ExtractPathParams<UserOrgPath>;
 
 type tests = [
   Expect<Equal<ExtractPathParams<UserPath>, { id: string }>>,
