@@ -71,5 +71,10 @@ export type Event =
 
 type EventType = Exclude<Event, { type: "keydown" }>;
 type EventType2 = EventType["type"];
+// Exclude 유틸리티 함수
+// T에서 U에 지정한 모든 property를 제외하고 구성한다.
+// T는 Event 전체, U는 {type: "keydown"} 이면 공통적인 {type: "keydown"}을 제외한
+// 나머지 "click" | "focus" 타입이 됨.
+type EventType = Exclude<Event, { type: "keydown" }>["type"];
 
 type tests = [Expect<Equal<EventType2, "click" | "focus">>];
