@@ -100,7 +100,6 @@ it("Should return the keys of the object", () => {
 const makeSafe =
   // 타입인자를 함수의 형태로 받음
 
-
     <TFunc extends (...args: any[]) => any>(func: TFunc) =>
     (
       // 타입 유틸리티 Parameters로 TFunc 함수의 매개변수 타입을 가져옴
@@ -109,7 +108,7 @@ const makeSafe =
       | {
           type: "success";
           // 타입 유틸리티 ReturnType으로 함수 리턴 타입을 추론
-          result: ReturnType<any>;
+          result: ReturnType<TFunc>;
         }
       | {
           type: "failure";
@@ -202,3 +201,31 @@ it("Should properly match the function's arguments", () => {
 
   func(1, "1");
 });
+
+// Type arguments 타입 제한
+// 타입 제한을 걸지않으면 타입을 추론하여 받음 함수('a')면 string 타입
+// 타입 파라미터를 문자형이나 숫자로만 받게 타입 제한을 걸면
+// string이나 number 형태가 아닌 받은 타입 그대로 타입을 리턴됨. 함수('a') 면 'a'타입
+export const inferItemLiteral = <T extends string | number>(t: T) => {
+  return {
+    output: t,
+    // 위 타입 제한을 하지 않고, 여기에 오는 타입이 제한적이라면 단순하게,
+    // output: "a" | "b", 도 괜찮음
+  };
+};
+
+const result1 = inferItemLiteral("a");
+const result2 = inferItemLiteral(123);
+
+type tests = [
+  Expect<Equal<typeof result1, { output: "a" }>>,
+  Expect<Equal<typeof result2, { output: 123 }>>
+];
+
+// @ts-expect-error
+const error1 = inferItemLiteral({
+  a: 1,
+});
+
+// @ts-expect-error
+const error2 = inferItemLiteral([1, 2]);
