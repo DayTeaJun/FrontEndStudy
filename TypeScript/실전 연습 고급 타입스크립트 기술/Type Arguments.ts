@@ -95,3 +95,110 @@ it("Should return the keys of the object", () => {
 
   type test = Expect<Equal<typeof result1, Array<"a" | "b">>>;
 });
+
+// 함수형 언어 Result 타입
+const makeSafe =
+  // 타입인자를 함수의 형태로 받음
+
+
+    <TFunc extends (...args: any[]) => any>(func: TFunc) =>
+    (
+      // 타입 유틸리티 Parameters로 TFunc 함수의 매개변수 타입을 가져옴
+      ...args: Parameters<TFunc>
+    ):
+      | {
+          type: "success";
+          // 타입 유틸리티 ReturnType으로 함수 리턴 타입을 추론
+          result: ReturnType<any>;
+        }
+      | {
+          type: "failure";
+          error: Error;
+        } => {
+      try {
+        const result = func(...args);
+
+        return {
+          type: "success",
+          result,
+        };
+      } catch (e) {
+        return {
+          type: "failure",
+          error: e as Error,
+        };
+      }
+    };
+// 첫번째 테스트
+it("Should return the result with a { type: 'success' } on a successful call", () => {
+  const func = makeSafe(() => 1);
+
+  const result = func();
+
+  expect(result).toEqual({
+    type: "success",
+    result: 1,
+  });
+
+  type tests = [
+    Expect<
+      Equal<
+        typeof result,
+        | {
+            type: "success";
+            result: number;
+          }
+        | {
+            type: "failure";
+            error: Error;
+          }
+      >
+    >
+  ];
+});
+// 두번째 테스트
+it("Should return the error on a thrown call", () => {
+  const func = makeSafe(() => {
+    if (1 > 2) {
+      return "123";
+    }
+    throw new Error("Oh dear");
+  });
+
+  const result = func();
+
+  expect(result).toEqual({
+    type: "failure",
+    error: new Error("Oh dear"),
+  });
+
+  type tests = [
+    Expect<
+      Equal<
+        typeof result,
+        | {
+            type: "success";
+            result: string;
+          }
+        | {
+            type: "failure";
+            error: Error;
+          }
+      >
+    >
+  ];
+});
+// 세번째 테스트
+it("Should properly match the function's arguments", () => {
+  const func = makeSafe((a: number, b: string) => {
+    return `${a} ${b}`;
+  });
+
+  // @ts-expect-error
+  func();
+
+  // @ts-expect-error
+  func(1, 1);
+
+  func(1, "1");
+});
