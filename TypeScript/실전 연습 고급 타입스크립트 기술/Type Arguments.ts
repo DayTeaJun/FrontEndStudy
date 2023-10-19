@@ -100,6 +100,7 @@ it("Should return the keys of the object", () => {
 const makeSafe =
   // 타입인자를 함수의 형태로 받음
 
+
     <TFunc extends (...args: any[]) => any>(func: TFunc) =>
     (
       // 타입 유틸리티 Parameters로 TFunc 함수의 매개변수 타입을 가져옴
@@ -229,3 +230,20 @@ const error1 = inferItemLiteral({
 
 // @ts-expect-error
 const error2 = inferItemLiteral([1, 2]);
+
+// Argument로 넘어온 Array의 타입
+// const makeStatus = <TStatuses extends string[]>(statuses: TStatuses) => {
+//   return statuses;
+// };
+// 타입파라미터를 string으로 제한을 둔 뒤에 받는 Argument의 타입을 배열로 지정하여
+// 문자로 이루어진 배열 형태의 타입을 만든다.
+const makeStatus = <TStatuses extends string>(statuses: TStatuses[]) => {
+  return statuses;
+};
+// 타입스크립트가 타입 추론을 하여, 문자열로 이루어진 배열에서 요소가 아래의 4가지 형태로 제한할 수 있는 문자열의 유니온 타입으로 추론한다.
+// 그러면 결과적으로, ("INFO" | "DEBUG" | "ERROR" | "WARNING")[] 형태의 타입이 추론이 된다.
+const statuses = makeStatus(["INFO", "DEBUG", "ERROR", "WARNING"]);
+
+type tests = [
+  Expect<Equal<typeof statuses, Array<"INFO" | "DEBUG" | "ERROR" | "WARNING">>>
+];
