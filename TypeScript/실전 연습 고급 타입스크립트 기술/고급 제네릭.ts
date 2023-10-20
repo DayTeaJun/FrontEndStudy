@@ -40,3 +40,37 @@ it("Should return hello when goodbye is passed in", () => {
 // ? 함수 정의 : func(a, b, c)
 // ? 함수 실행 : func(a)
 // ? 실행 결과 : func(a)상태에서 b 함수 입력 대기
+export const curryFunction =
+  // 함수가 실행이 될때 맨앞의 T만 받기 때문에,
+  // 아래처럼 하면 맨앞의 T만 추론이 된다.
+  // const result = curryFunction(1)(2)(3); 중
+  // const result = curryFunction(1) 이 먼저 실행되므로,
+  // <T, U, V>(t: T) =>
+  // (u: U) =>
+  // (v: V) => {
+  // 각각의 타입을 추론할려면 각각의 화살표 함수앞에 타입인자를 선언하여 타입인자를 받도록 한다.
+
+
+    <T>(t: T) =>
+    <U>(u: U) =>
+    <V>(v: V) => {
+      return {
+        t,
+        u,
+        v,
+      };
+    };
+
+it("Should return an object which matches the types of each input", () => {
+  const result = curryFunction(1)(2)(3);
+
+  expect(result).toEqual({
+    t: 1,
+    u: 2,
+    v: 3,
+  });
+
+  type test = [
+    Expect<Equal<typeof result, { t: number; u: number; v: number }>>
+  ];
+});
