@@ -47,9 +47,8 @@ export const curryFunction =
   // const result = curryFunction(1) 이 먼저 실행되므로,
   // <T, U, V>(t: T) =>
   // (u: U) =>
-  // (v: V) => {
+  // (v: V) =>
   // 각각의 타입을 추론할려면 각각의 화살표 함수앞에 타입인자를 선언하여 타입인자를 받도록 한다.
-
 
     <T>(t: T) =>
     <U>(u: U) =>
