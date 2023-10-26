@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader", // webpack과 타입스크립트 연결해줌 옛날 문법으로 변환
+        loader: "ts-loader", // webpack과 타입스크립트 연결해줌 옛날 문법(JS)으로 변환
       },
     ],
   },
