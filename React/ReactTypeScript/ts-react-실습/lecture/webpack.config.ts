@@ -22,13 +22,13 @@ const config: Configuration = {
   module: {
     rules: [
       {
+        loader: "babel-loader",
+        options: { plugins: ["react-refresh/babel"] },
+      },
+      {
         test: /\.tsx?$/,
         loader: "ts-loader", // webpack과 타입스크립트 연결해줌 옛날 문법(JS)으로 변환
         exclude: path.join(__dirname, "node_modules"),
-      },
-      {
-        loader: "babel-loader",
-        options: { plugins: ["react-refresh/babel"] },
       },
     ],
   },

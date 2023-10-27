@@ -8,8 +8,8 @@ import * as ReactDOM from "react-dom";
 
 import Gugudan from "./Gugudan";
 import GugudanClass from "./GugudanClass";
-import WrodRelay from "./WordRelay";
+import WordRelay from "./WordRelay";
 
-ReactDOM.render(<WrodRelay />, document.querySelector("#root"));
+ReactDOM.render(<WordRelay />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨
