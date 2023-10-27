@@ -1,3 +1,4 @@
+// 함수형 컴포넌트
 // jsx 사용시 필수
 import * as React from "react";
 import { useState, useRef } from "react";
