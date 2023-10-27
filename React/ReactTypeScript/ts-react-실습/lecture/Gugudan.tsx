@@ -5,7 +5,8 @@ import { useState, useRef } from "react";
 
 // <> === React.Fragment
 const Gugudan = () => {
-  const [first, setFirst] = useState(Math.ceil(Math.random() * 9));
+  // 타입스크립트가 스스로 타입 추론을 하지 못한다면 제네릭을 추가하여 사용
+  const [first, setFirst] = useState<number>(Math.ceil(Math.random() * 9));
   const [second, setSecond] = useState(Math.ceil(Math.random() * 9));
   const [value, setValue] = useState("");
   const [result, setResult] = useState("");

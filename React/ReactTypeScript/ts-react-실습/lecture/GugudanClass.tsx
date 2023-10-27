@@ -11,7 +11,7 @@ interface IState {
 }
 
 // Componet의 제네릭 자리로는, 첫번째 자리에는 props, 두번째는 state에 대한 타이핑
-class Gugudan extends Component<{}, IState> {
+class GugudanClass extends Component<{}, IState> {
   state = {
     first: Math.ceil(Math.random() * 9),
     second: Math.ceil(Math.random() * 9),
@@ -83,3 +83,5 @@ class Gugudan extends Component<{}, IState> {
     );
   }
 }
+
+export default GugudanClass;

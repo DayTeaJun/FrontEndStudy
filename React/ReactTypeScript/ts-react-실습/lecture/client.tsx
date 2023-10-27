@@ -7,7 +7,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import Gugudan from "./Gugudan";
+import GugudanClass from "./GugudanClass";
 
-ReactDOM.render(<Gugudan />, document.querySelector("#root"));
+ReactDOM.render(<GugudanClass />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨
