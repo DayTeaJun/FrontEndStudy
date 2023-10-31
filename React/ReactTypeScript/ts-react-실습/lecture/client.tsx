@@ -9,7 +9,8 @@ import * as ReactDOM from "react-dom";
 import Gugudan from "./Gugudan";
 import GugudanClass from "./GugudanClass";
 import WordRelay from "./WordRelay";
+import NumberBaseball from "./NumberBaseball";
 
-ReactDOM.render(<WordRelay />, document.querySelector("#root"));
+ReactDOM.render(<NumberBaseball />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨

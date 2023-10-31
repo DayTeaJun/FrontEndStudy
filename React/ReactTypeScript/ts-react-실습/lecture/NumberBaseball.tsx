@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useRef, useState, useCallback } from "react";
+import Try from "./Try";
+import { TryInfo } from "./types";
 
 const getNumbers = () => {
   const candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -10,10 +12,11 @@ const getNumbers = () => {
   return array;
 };
 
-interface TryInfo {
-  try: string;
-  result: string;
-}
+// 리액트 파일에 같이 있는 것보다 별도의 파일로 분리하는게 좋음
+// export interface TryInfo {
+//   try: string;
+//   result: string;
+// }
 
 const NumberBaseball = () => {
   const [answer, setAnswer] = useState(getNumbers());
@@ -100,9 +103,12 @@ const NumberBaseball = () => {
       <div>시도 : {tries.length}</div>
       <ul>
         {tries.map((v, i) => (
+          // props 사용 Try 컴포넌트
           <Try key={`${i + 1}차 시도 : ${v.try}`} tryInfo={v} />
         ))}
       </ul>
     </>
   );
 };
+
+export default NumberBaseball;
