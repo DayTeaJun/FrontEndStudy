@@ -24,6 +24,8 @@ const ResponseCheck = () => {
         setMessage("지금 클릭");
         startTime.current = new Date().getTime();
       }, Math.floor(Math.random() * 1000) + 2000);
+      setState("ready");
+      setMessage("초록색이 되면 클릭하세요.");
     } else if (state === "ready") {
       if (timeout.current) {
         clearTimeout(timeout.current);
@@ -33,12 +35,18 @@ const ResponseCheck = () => {
     } else if (state === "now") {
       endTime.current = new Date().getTime();
       setState("waiting");
+      setMessage("클릭해서 시작하세요");
+      setResult((prevResult) => {
+        return [...prevResult, endTime.current - startTime.current];
+      });
     }
   }, [state]);
 
   const onReset = useCallback(() => {
     setResult([]);
   }, []);
+
+  console.log(result);
 
   const renderAverage = () => {
     return result.length === 0 ? null : (
