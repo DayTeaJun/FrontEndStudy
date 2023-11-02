@@ -10,7 +10,8 @@ import Gugudan from "./Gugudan";
 import GugudanClass from "./GugudanClass";
 import WordRelay from "./WordRelay";
 import NumberBaseball from "./NumberBaseball";
+import ResponseCheck from "./ResponseCheck";
 
-ReactDOM.render(<NumberBaseball />, document.querySelector("#root"));
+ReactDOM.render(<ResponseCheck />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨
