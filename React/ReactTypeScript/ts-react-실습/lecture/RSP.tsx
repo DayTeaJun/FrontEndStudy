@@ -32,13 +32,15 @@ const computerChoice = (imgCoords: imgCoords) => {
 
 const RSP = () => {
   const [result, setResult] = useState("");
-  const [imgCoord, setImgCoord] = useState(rspCoords.바위);
+  // 제네릭<imgCoords>으로 타입추론을 제대로 해준다. 제네릭을 넣지않으면 기본값(이때는 rspCoords.바위)으로 타입이됨
+  const [imgCoord, setImgCoord] = useState<imgCoords>(rspCoords.바위);
   const [score, setScore] = useState(0);
   const interval = useRef<number>();
 
   useEffect(() => {
     console.log("다시 실행");
-    interval.current = setInterval(changeHand, 100);
+    // setInterval 이 nodeJS에서 실행된다고 기본값이 되어있어 웹으로 실행하는 window로 붙여줘야함
+    interval.current = window.setInterval(changeHand, 100);
     return () => {
       console.log("종료");
       clearInterval(interval.current);
@@ -46,6 +48,7 @@ const RSP = () => {
   }, [imgCoord]);
 
   const changeHand = () => {
+    // 위 useState의 제네릭을 넣어 타입추론을 가능하게 해줌
     if (imgCoord === rspCoords.바위) {
       setImgCoord(rspCoords.가위);
     } else if (imgCoord === rspCoords.가위) {
@@ -55,7 +58,8 @@ const RSP = () => {
     }
   };
 
-  const onClickBtn = () => () => {
+  // JSX에서 인자를 넣어 함수를 실행할 때, 호출이 한번 들어가면 고차함수로 작성
+  const onClickBtn = (choice: keyof typeof rspCoords) => () => {
     clearInterval(interval.current);
     const myScore = scores[choice];
     const cpuScore = scores[computerChoice(imgCoord)];
@@ -70,7 +74,7 @@ const RSP = () => {
       setScore((prev) => prev - 1);
     }
     setTimeout(() => {
-      interval.current = setInterval(changeHand, 100);
+      interval.current = window.setInterval(changeHand, 100);
     }, 1000);
   };
 
@@ -83,13 +87,13 @@ const RSP = () => {
         }}
       ></div>
       <div>
-        <button id="rock" className="btn" onClick={onclick("바위")}>
+        <button id="rock" className="btn" onClick={onClickBtn("바위")}>
           바위
         </button>
-        <button id="scissor" className="btn" onClick={onclick("가위")}>
+        <button id="scissor" className="btn" onClick={onClickBtn("가위")}>
           가위
         </button>
-        <button id="paper" className="btn" onClick={onclick("보")}>
+        <button id="paper" className="btn" onClick={onClickBtn("보")}>
           보
         </button>
         <div>{result}</div>

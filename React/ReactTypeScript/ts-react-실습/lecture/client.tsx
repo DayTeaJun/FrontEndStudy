@@ -11,7 +11,8 @@ import GugudanClass from "./GugudanClass";
 import WordRelay from "./WordRelay";
 import NumberBaseball from "./NumberBaseball";
 import ResponseCheck from "./ResponseCheck";
+import RSP from "./RSP";
 
-ReactDOM.render(<ResponseCheck />, document.querySelector("#root"));
+ReactDOM.render(<RSP />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨
