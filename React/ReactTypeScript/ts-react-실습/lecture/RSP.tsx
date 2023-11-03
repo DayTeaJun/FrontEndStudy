@@ -5,18 +5,29 @@ const rspCoords = {
   바위: "0",
   가위: "-142px",
   보: "-284px",
-};
+} as const;
 
+// 아래 값은 바뀔일이 없으므로 as const로 readonly 값 고정
 const scores = {
   가위: 1,
   바위: 0,
   보: -1,
-};
+} as const;
 
-const computerChoice = (imgCoords) => {
-  return Object.keys(rspCoords).find((k) => {
+// 해당 타입을 불러오고
+type a = typeof rspCoords;
+// 해당 타입의 키를 불러옴
+type a1 = keyof typeof rspCoords;
+// 해당 타입의 값을 불러옴
+type imgCoords = (typeof rspCoords)[keyof typeof rspCoords];
+// type imgCoords = "0" | "-142px" | "-284px"
+
+const computerChoice = (imgCoords: imgCoords) => {
+  // Object.keys 의 리턴값은 string이라고 기본값으로 되어있음 그래서 강제 형변환 as 해줘야함
+  return (Object.keys(rspCoords) as ["바위", "가위", "보"]).find((k) => {
     return rspCoords[k] === imgCoords;
-  });
+  })!;
+  // computerChoice 함수의 리턴 값에서 타입스크립트가 undefined도 추론을 하기 때문에, 사실 이 함수에서 undefined 나올 일은 없으므로 끝에 '!' 붙여 undefined가 나오지 않는다는 것을 확인 시킨다.
 };
 
 const RSP = () => {
