@@ -23,7 +23,7 @@ type imgCoords = (typeof rspCoords)[keyof typeof rspCoords];
 // type imgCoords = "0" | "-142px" | "-284px"
 
 const computerChoice = (imgCoords: imgCoords) => {
-  // Object.keys 의 리턴값은 string이라고 기본값으로 되어있음 그래서 강제 형변환 as 해줘야함
+  // Object.keys 의 리턴값은 string이라고 기본값으로 되어있음 그래서 강제 형변환 as 해줘야함 (위의 rspCoords의 타입을 as const로 바위, 가위, 보 로 고정했기 때문)
   return (Object.keys(rspCoords) as ["바위", "가위", "보"]).find((k) => {
     return rspCoords[k] === imgCoords;
   })!;
