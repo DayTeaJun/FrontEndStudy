@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useMemo, useState, useRef, useCallback } from "react";
+import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import Ball from "./Ball";
 
 function getWinNumbers() {
   // 타입스크립트에는 fill()할때, null을 넣어야 에러가 안남
@@ -28,6 +29,23 @@ const Lotto = () => {
   // 빈 배열은 타입 추론 가능하게 리턴값을 넣는다.
   const timeouts = useRef<number[]>([]);
 
+  useEffect(() => {
+    for (let i = 0; i < winNumbers.length - 1; i++) {
+      timeouts.current[i] = window.setTimeout(() => {
+        setWinBalls((prevBalls) => [...prevBalls, winNumbers[i]]);
+      }, (i + 1) * 1000);
+    }
+    timeouts.current[6] = window.setTimeout(() => {
+      setBonus(winNumbers[6]);
+      setRedo(true);
+    }, 7000);
+    return () => {
+      timeouts.current.forEach((v) => {
+        clearTimeout(v);
+      });
+    };
+  }, [timeouts.current]);
+
   const onClickRedo = useCallback(() => {
     setWinNumbers(getWinNumbers());
     setWinBalls([]);
@@ -50,3 +68,5 @@ const Lotto = () => {
     </>
   );
 };
+
+export default Lotto;

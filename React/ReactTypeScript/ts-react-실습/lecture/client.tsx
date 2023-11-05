@@ -12,7 +12,8 @@ import WordRelay from "./WordRelay";
 import NumberBaseball from "./NumberBaseball";
 import ResponseCheck from "./ResponseCheck";
 import RSP from "./RSP";
+import Lotto from "./Lotto";
 
-ReactDOM.render(<RSP />, document.querySelector("#root"));
+ReactDOM.render(<Lotto />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨
