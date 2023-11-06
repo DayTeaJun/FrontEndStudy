@@ -31,6 +31,7 @@ interface SetWinnerAction {
   winner: "O" | "X";
 }
 
+// action creater 변하는 값 winner 있어서 사용
 const setWinner = (winner: "O" | "X"): SetWinnerAction => {
   return { type: SET_WINNER, winner };
 };
@@ -41,6 +42,7 @@ interface ClickCellAction {
   cell: number;
 }
 
+// action creater 변하는 값 winner 있어서 사용 없는 경우는 사용하지 않음
 const clickCell = (row: number, cell: number): ClickCellAction => {
   return { type: CLICK_CELL, row, cell };
 };
@@ -59,6 +61,7 @@ type ReducerActions =
   | ChageTurnAction
   | ResetGameAction;
 
+// state를 리턴하는 함수 (옛날 state를 action으로 새로운 state로 바꿔내는 함수)
 const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
   switch (action.type) {
     case SET_WINNER:
