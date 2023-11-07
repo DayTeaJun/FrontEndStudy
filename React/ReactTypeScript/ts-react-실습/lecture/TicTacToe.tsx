@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useCallback, useReducer, Reducer } from "react";
+import { useEffect, useCallback, useReducer } from "react";
 import Table from "./Table";
 
 interface ReducerState {
@@ -104,6 +104,66 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
 const TicTacToe = () => {
   const [state, dispatch] = useReducer(reducer, initialState); // state들은 여기서 다룬다.
   const { tableData, turn, winner, recentCell } = state;
+
+  useEffect(() => {
+    // 승자 가리는 useEffect
+    const [row, cell] = recentCell;
+    if (row < 0) {
+      return;
+    }
+    let win = false;
+    // 가로줄
+    if (
+      tableData[row][0] === turn &&
+      tableData[row][1] === turn &&
+      tableData[row][2] === turn
+    ) {
+      win = true;
+    }
+    // 세로줄
+    if (
+      tableData[0][cell] === turn &&
+      tableData[1][cell] === turn &&
+      tableData[2][cell] === turn
+    ) {
+      win = true;
+    }
+    // 대각선
+    if (
+      tableData[0][0] === turn &&
+      tableData[1][1] === turn &&
+      tableData[2][2] === turn
+    ) {
+      win = true;
+    }
+    if (
+      tableData[0][2] === turn &&
+      tableData[1][1] === turn &&
+      tableData[2][0] === turn
+    ) {
+      win = true;
+    }
+    if (win) {
+      dispatch({ type: SET_WINNER, winner: turn });
+      dispatch({ type: RESET_GAME });
+    } else {
+      let all = true; // all이 true 무승부
+      tableData.forEach((row) => {
+        row.forEach((cell) => {
+          if (!cell) {
+            // 하나라도 빈칸이면 아직 게임 안끝남
+            all = false;
+          }
+        });
+        if (all) {
+          dispatch({ type: RESET_GAME });
+        } else {
+          dispatch({ type: CHANGE_TURN });
+        }
+      });
+    }
+  }, [recentCell]);
+
   const onClickTable = useCallback(() => {
     // dispatch를 통해 state변경
     dispatch(setWinner("O"));
