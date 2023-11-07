@@ -66,11 +66,11 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
   switch (action.type) {
     case SET_WINNER:
       return {
-        ...StaticRange,
+        ...state,
         winner: action.winner,
       };
     case CLICK_CELL: {
-      const tableData = [...StaticRange.tableData];
+      const tableData = [...state.tableData];
       tableData[action.row] = [...tableData[action.row]];
       tableData[action.row][action.cell] = state.turn;
       return {
@@ -102,9 +102,10 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
 };
 
 const TicTacToe = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState); // state들은 여기서 다룬다.
   const { tableData, turn, winner, recentCell } = state;
   const onClickTable = useCallback(() => {
+    // dispatch를 통해 state변경
     dispatch(setWinner("O"));
   }, []);
 
@@ -119,3 +120,5 @@ const TicTacToe = () => {
     </>
   );
 };
+
+export default TicTacToe;
