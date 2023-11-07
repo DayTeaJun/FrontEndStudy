@@ -194,7 +194,16 @@ const TicTacToe = () => {
   }, []);
 
   return (
+    // ReactNode와 ReactElement 차이
+    // react 태그와 관련된 것들은 ReactNode (JSX 전체를 아울러)
+    // type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+
+    // ReactElement는
+    // 태그의 속성들 (type, props, key 등) | 그외 html 태그들을 통칭하는 JSX.IntrinsicElement로도 통한다. 그래서 해당 타입들이 정의되지 않은 걸 사용한다면 따로 정의해줘야함.(않을 걸 사용 시 에러)
+
+    // 어떤 타입인지 검색할 때, 해당 타입에 우클릭하여 go to definition을 이용하여 검색하기.
     <>
+      {/* dispatch를 계속해서 사용할 곳으로 넘겨줘야함, 그래서 props가 커질 수록 contextAPI를 사용하는것을 권장 */}
       <Table
         onClick={onClickTable}
         tableData={tableData}
