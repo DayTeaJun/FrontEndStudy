@@ -3,6 +3,7 @@ import { useEffect, useCallback, useReducer } from "react";
 import Table from "./Table";
 
 interface ReducerState {
+  // '' 빈문자열은 무승부
   winner: "O" | "X" | "";
   turn: "O" | "X";
   tableData: string[][];
@@ -21,11 +22,13 @@ const initialState: ReducerState = {
   recentCell: [-1, -1],
 };
 
+// state를 바꾸는 action
 export const SET_WINNER = "SET_WINNER" as const;
 export const CLICK_CELL = "CLICK_CELL" as const;
 export const CHANGE_TURN = "CHANGE_TURN" as const;
 export const RESET_GAME = "RESET_GAME" as const;
 
+// action들은 객체로 이루어짐 그래서 타입을 지정함
 interface SetWinnerAction {
   type: typeof SET_WINNER;
   winner: "O" | "X";
@@ -42,7 +45,7 @@ interface ClickCellAction {
   cell: number;
 }
 
-// action creater 변하는 값 winner 있어서 사용 없는 경우는 사용하지 않음
+// action creater 변하는 값 row, cell 있어서 사용 없는 경우는 사용하지 않음
 const clickCell = (row: number, cell: number): ClickCellAction => {
   return { type: CLICK_CELL, row, cell };
 };
@@ -64,11 +67,14 @@ type ReducerActions =
 // state를 리턴하는 함수 (옛날 state를 action으로 새로운 state로 바꿔내는 함수)
 const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
   switch (action.type) {
+    // 승자 설정
     case SET_WINNER:
       return {
+        // state.winner = action.winner 는 안됨
         ...state,
         winner: action.winner,
       };
+    // 칸 클릭
     case CLICK_CELL: {
       const tableData = [...state.tableData];
       tableData[action.row] = [...tableData[action.row]];
@@ -79,12 +85,14 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
         recentCell: [action.row, action.cell],
       };
     }
+    // 턴 변경
     case CHANGE_TURN: {
       return {
         ...state,
         turn: state.turn === "O" ? "X" : "O",
       };
     }
+    // state 초기화
     case RESET_GAME: {
       return {
         ...state,
@@ -102,7 +110,13 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
 };
 
 const TicTacToe = () => {
-  const [state, dispatch] = useReducer(reducer, initialState); // state들은 여기서 다룬다.
+  // useState가 아닌 여러 state를 합친 useReducer
+  // 타입추론이 잘 안될 경우 제네릭을 추가 (지금은 잘되기때문에 안넣어도 됨)
+  const [state, dispatch] = useReducer<
+    React.Reducer<ReducerState, ReducerActions>
+  >(reducer, initialState); // state들은 여기서 다룬다.
+
+  // 위에 선언한 state 안에서 구조분해할당으로 꺼내옴
   const { tableData, turn, winner, recentCell } = state;
 
   useEffect(() => {
@@ -164,8 +178,13 @@ const TicTacToe = () => {
     }
   }, [recentCell]);
 
+  // *useCallback 남용의 문제점:
+  // 모든 함수를 useCallback으로 감싸게 되면
+  // 컴포넌트가 리렌더 될 때 마다 모든 함수가 다시 재 생성 될 필요 있는지 검사하는 연산이 수행됩니다.
+  // 따라서 보통은 특정 함수가 Props로 전달되어 불 필요한 컴포넌트 리렌더를 유발할 때에만 useCallback을 적용합니다.
+
   const onClickTable = useCallback(() => {
-    // dispatch를 통해 state변경
+    // dispatch를 통해 state변경 (action)
     dispatch(setWinner("O"));
   }, []);
 

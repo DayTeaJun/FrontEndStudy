@@ -14,6 +14,7 @@ const Table: FC<Props> = ({ tableData, dispatch }) => {
       {Array(tableData.length)
         .fill(null)
         .map((tr, i) =>
+          // 캐싱을 하기위한 useMemo
           useMemo(
             () => (
               <Tr

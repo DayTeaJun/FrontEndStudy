@@ -12,11 +12,15 @@ interface Props {
 
 const Td: FC<Props> = ({ rowIndex, cellIndex, dispatch, cellData }) => {
   const onClickTd = useCallback(() => {
+    // 이미 색칠된 칸이면 진행하지 않고 return 시킨다.
     if (cellData) {
       return;
     }
+    // 칸을 클릭 했을 때, 이벤트를 발생시키고 (useState처럼)
     dispatch({ type: CLICK_CELL, row: rowIndex, cell: cellIndex });
   }, [cellData]);
 
   return <td onClick={onClickTd}>{cellData}</td>;
 };
+
+export default Td;
