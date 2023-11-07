@@ -22,7 +22,7 @@ const initialState: ReducerState = {
   recentCell: [-1, -1],
 };
 
-// state를 바꾸는 action
+// state를 바꾸는 action (다른 컴포넌트에서도 사용할 수 있도록 export해둔다)
 export const SET_WINNER = "SET_WINNER" as const;
 export const CLICK_CELL = "CLICK_CELL" as const;
 export const CHANGE_TURN = "CHANGE_TURN" as const;
@@ -121,6 +121,7 @@ const TicTacToe = () => {
 
   useEffect(() => {
     // 승자 가리는 useEffect
+    // recentCell은 가장 최근의 칸
     const [row, cell] = recentCell;
     if (row < 0) {
       return;
@@ -158,20 +159,24 @@ const TicTacToe = () => {
       win = true;
     }
     if (win) {
+      // 승자
       dispatch({ type: SET_WINNER, winner: turn });
+      // 게임 초기화
       dispatch({ type: RESET_GAME });
     } else {
-      let all = true; // all이 true 무승부
+      let all = true; // all이 true면 무승부
       tableData.forEach((row) => {
         row.forEach((cell) => {
           if (!cell) {
-            // 하나라도 빈칸이면 아직 게임 안끝남
+            // 하나라도 빈칸이면 아직 게임 안끝남 (승리 조건 만족안하면서)
             all = false;
           }
         });
         if (all) {
+          // 무승부 결과
           dispatch({ type: RESET_GAME });
         } else {
+          // 게임 계속 진행
           dispatch({ type: CHANGE_TURN });
         }
       });

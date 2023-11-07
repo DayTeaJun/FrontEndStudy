@@ -4,6 +4,7 @@ import Tr from "./Tr";
 
 interface Props {
   tableData: string[][];
+  // Dispatch 타입을 정확하게 준다면 어떤 action(SET_WINNER, ...)을 주는지 적으면 됨, 크게 문제는 없음
   dispatch: Dispatch<any>;
   onClick: () => void;
 }
