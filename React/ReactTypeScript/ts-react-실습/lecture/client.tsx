@@ -13,7 +13,8 @@ import NumberBaseball from "./NumberBaseball";
 import ResponseCheck from "./ResponseCheck";
 import RSP from "./RSP";
 import Lotto from "./Lotto";
+import TicTacToe from "./TicTacToe";
 
-ReactDOM.render(<Lotto />, document.querySelector("#root"));
+ReactDOM.render(<TicTacToe />, document.querySelector("#root"));
 
 // npx webpack 또는 npm run dev 하면 컴파일됨

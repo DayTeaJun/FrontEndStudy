@@ -2,6 +2,10 @@ import * as React from "react";
 import { useEffect, useCallback, useReducer } from "react";
 import Table from "./Table";
 
+// 배열이 계속 중첩될 경우,
+// type abc = string[]
+// abc[] = string[][] 처럼 사용 가능
+
 interface ReducerState {
   // '' 빈문자열은 무승부
   winner: "O" | "X" | "";
@@ -31,11 +35,11 @@ export const RESET_GAME = "RESET_GAME" as const;
 // action들은 객체로 이루어짐 그래서 타입을 지정함
 interface SetWinnerAction {
   type: typeof SET_WINNER;
-  winner: "O" | "X";
+  winner: "O" | "X" | "";
 }
 
 // action creater 변하는 값 winner 있어서 사용
-const setWinner = (winner: "O" | "X"): SetWinnerAction => {
+const setWinner = (winner: "O" | "X" | ""): SetWinnerAction => {
   return { type: SET_WINNER, winner };
 };
 
@@ -46,7 +50,7 @@ interface ClickCellAction {
 }
 
 // action creater 변하는 값 row, cell 있어서 사용 없는 경우는 사용하지 않음
-const clickCell = (row: number, cell: number): ClickCellAction => {
+export const clickCell = (row: number, cell: number): ClickCellAction => {
   return { type: CLICK_CELL, row, cell };
 };
 
@@ -102,6 +106,7 @@ const reducer = (state: ReducerState, action: ReducerActions): ReducerState => {
           ["", "", ""],
           ["", "", ""],
         ],
+        recentCell: [-1, -1],
       };
     }
     default:
@@ -160,7 +165,7 @@ const TicTacToe = () => {
     }
     if (win) {
       // 승자
-      dispatch({ type: SET_WINNER, winner: turn });
+      dispatch(setWinner(turn));
       // 게임 초기화
       dispatch({ type: RESET_GAME });
     } else {
@@ -172,14 +177,14 @@ const TicTacToe = () => {
             all = false;
           }
         });
-        if (all) {
-          // 무승부 결과
-          dispatch({ type: RESET_GAME });
-        } else {
-          // 게임 계속 진행
-          dispatch({ type: CHANGE_TURN });
-        }
       });
+      if (all) {
+        // 무승부 결과
+        dispatch({ type: RESET_GAME });
+      } else {
+        // 게임 계속 진행
+        dispatch({ type: CHANGE_TURN });
+      }
     }
   }, [recentCell]);
 
