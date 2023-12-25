@@ -5,7 +5,7 @@ import { useSignup } from '../../hooks/useSignup';
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // displayName은 Firebase에서 유저 정보에 저장할 수 있는 속성 중 하나(명칭)
+  // displayName은 Firebase에서 유저 정보에 저장할 수 있는 속성 중 하나(닉네임)
   const [displayName, setDisplayName] = useState('');
   const { error, isPending, signup } = useSignup();
 
