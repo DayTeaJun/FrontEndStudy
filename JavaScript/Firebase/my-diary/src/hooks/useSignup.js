@@ -25,18 +25,20 @@ export const useSignup = () => {
 
         // 회웝가입 진행이 되면, 유저 정보 업데이트(닉네임 업데이트)
         // appAuth.currentUser 는 현재 로그인한 유저의 정보
-        updateProfile(appAuth.currentUser, { displayName }).then(() => {
-          setError(() => {
-            setError(null);
-            setIsPending(false);
-          }).catch((error) => {
-            setError(error.message);
+        updateProfile(appAuth.currentUser, { displayName })
+          .then(() => {
+            setError(() => {
+              setError(null);
+              setIsPending(false);
+            });
+          })
+          .catch((err) => {
+            setError(err.message);
             setIsPending(false);
           });
-        });
       })
-      .catch((error) => {
-        setError(error.message);
+      .catch((err) => {
+        setError(err.message);
         setIsPending(false);
       });
   };
