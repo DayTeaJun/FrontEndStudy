@@ -26,7 +26,7 @@ export default function DiaryForm() {
           <input id="title" type="text" required onChange={handleData} />
 
           <label htmlFor="txt">일기 내용 : </label>
-          <textarea id="txt" type="text" required onChange={handleData} />
+          <textarea id="txt" type="text" required onChan ge={handleData} />
 
           <button type="submit">저장하기</button>
         </fieldset>
