@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer } from "react";
 
 // context 객체 생성
 const AuthContext = createContext();
@@ -7,9 +7,13 @@ const AuthContext = createContext();
 const authReducer = (state, action) => {
   switch (action.type) {
     // 회원가입, 로그인 하나로 통합
-    case 'login':
+    case "login":
       // ...state(기존 유저 정보), action.payload로 받아온 유저정보를 합침
       return { ...state, user: action.payload };
+
+    case "logout":
+      // 기존 유저 정보 null로 정보 없앰
+      return { ...state, user: null };
     default:
       return state;
   }
