@@ -30,6 +30,8 @@ export const useCollection = (transaction) => {
       }
     );
     // 만든 함수(훅)이 마운트 될때(통신이 다 완료된 후, 실행하도록)
+    // useEffect 훅의 return 값에 함수를 반환하면 clean-up 함수가 됩니다. 외부에서 데이터를 구독하는 경우 clean-up 함수는 useEffect훅을 사용하는 컴포넌트가 마운트 해제될때 실행되어 구독을 종료하게 됩니다.
+    // 참고 : https://ko.reactjs.org/docs/hooks-effect.html#example-using-hooks-1
     return unsubscribe;
   }, [collection]);
 
