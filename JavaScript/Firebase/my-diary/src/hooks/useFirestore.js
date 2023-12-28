@@ -1,6 +1,6 @@
 import { collection } from 'firebase/firestore';
 import { useReducer } from 'react';
-import { appFirestore } from '../firebase/config';
+import { appFirestore, timestamp } from '../firebase/config';
 
 const initState = {
   // 데이터 객체 형태 저장 document
@@ -50,9 +50,11 @@ export const useFirestore = (transaction) => {
     // 통신중임을 알림
     dispatch({ type: 'isPending' });
     try {
+      // firebase 에 있는 timestamp(문서가 등록될때 시간을 저장)
+      const createdTime = timestamp.fromDate(new Date());
       // addDoc : Document 추가, 문서 참조 상수에 저장(docRef)
       // 첫번째 인자(collection 함수인 colRef, 두번째 인자 doc는 addDocument 실행시 받는 인자)
-      const docRef = await addDoc(colRef, doc);
+      const docRef = await addDoc(colRef, { ...doc, createdTime });
       dispatch({ type: 'addDoc', payload: docRef });
       console.log(docRef);
     } catch (error) {

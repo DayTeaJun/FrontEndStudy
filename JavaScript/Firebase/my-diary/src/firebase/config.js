@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, Timestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,5 +16,6 @@ const app = initializeApp(firebaseConfig);
 // 인증 초기화
 const appAuth = getAuth();
 const appFirestore = getFirestore();
+const timestamp = Timestamp;
 
-export { appAuth, appFirestore };
+export { appAuth, appFirestore, timestamp };
