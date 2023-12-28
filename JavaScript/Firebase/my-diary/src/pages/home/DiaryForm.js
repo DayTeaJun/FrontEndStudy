@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useFirestore } from '../../hooks/useFirestore';
 
-export default function DiaryForm() {
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+// DiaryForm이 실행될때 props로 유저의 id를 전달받음
+export default function DiaryForm({ uid }) {
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  // useFireStore의 인자값은 collection의 이름
+  const { addDocument, response } = useFirestore('diary');
 
   const handleData = (e) => {
-    if (e.target.id === "title") {
+    if (e.target.id === 'title') {
       setTitle(e.target.value);
-    } else if (e.target.id === "txt") {
+    } else if (e.target.id === 'txt') {
       setText(e.target.value);
     }
   };
@@ -15,6 +19,8 @@ export default function DiaryForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(title, text);
+    // uid는 작성한 유저의 id
+    addDocument({ uid, title, text });
   };
 
   return (
@@ -26,7 +32,7 @@ export default function DiaryForm() {
           <input id="title" type="text" required onChange={handleData} />
 
           <label htmlFor="txt">일기 내용 : </label>
-          <textarea id="txt" type="text" required onChan ge={handleData} />
+          <textarea id="txt" type="text" required onChange={handleData} />
 
           <button type="submit">저장하기</button>
         </fieldset>

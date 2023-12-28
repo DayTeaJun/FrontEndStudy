@@ -1,4 +1,4 @@
-import { collection } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { useReducer } from 'react';
 import { appFirestore, timestamp } from '../firebase/config';
 
