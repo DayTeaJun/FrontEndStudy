@@ -1,16 +1,25 @@
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { appFirestore } from '../firebase/config';
 
-export const useCollection = (transaction) => {
+// myQuery로 유저가 작성한 문서인지 확인
+export const useCollection = (transaction, myQuery) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let qr;
+    if (myQuery) {
+      // firebase 메서드 query에 fcollection()추가 및 where(인자로 받은 배열을 전개구문으로 품) 함수 실행
+      qr = query(collection(appFirestore, transaction), where(...myQuery));
+    }
+
     // onSnapshot을 실행시키면 Firebase와 통신 상태로 두기 때문에 unsubscribe로 반환하여 통신을 중단함
     const unsubscribe = onSnapshot(
-      // 가장 최신의 collection 내용을 반환
-      collection(appFirestore, transaction),
+      myQuery
+        ? qr
+        : // 가장 최신의 collection 내용을 반환
+          collection(appFirestore, transaction),
       (snapshot) => {
         // snapshot 최신 collection의 내용을 저장(배열형태인 doc로 저장)
         let result = [];
