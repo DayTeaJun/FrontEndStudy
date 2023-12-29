@@ -15,7 +15,7 @@ export default function Home() {
       <aside className={styles.side_menu}>
         <DiaryForm uid={user.uid} />
       </aside>
-      <ul className={styles.context_list}>
+      <ul className={styles.content_list}>
         {error && <strong>{error}</strong>}
         {documents && <DiaryList diaries={documents} />}
       </ul>
