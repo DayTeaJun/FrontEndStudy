@@ -1,4 +1,10 @@
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { appFirestore } from '../firebase/config';
 
@@ -11,7 +17,12 @@ export const useCollection = (transaction, myQuery) => {
     let qr;
     if (myQuery) {
       // firebase 메서드 query에 fcollection()추가 및 where(인자로 받은 배열을 전개구문으로 품) 함수 실행
-      qr = query(collection(appFirestore, transaction), where(...myQuery));
+      qr = query(
+        collection(appFirestore, transaction),
+        where(...myQuery),
+        // orderBy는 firebase 정렬 메서드, createdTime은 이전 timestamp로 만든 프로퍼티, desc는 오름차순
+        orderBy('createdTime', 'desc')
+      );
     }
 
     // onSnapshot을 실행시키면 Firebase와 통신 상태로 두기 때문에 unsubscribe로 반환하여 통신을 중단함
