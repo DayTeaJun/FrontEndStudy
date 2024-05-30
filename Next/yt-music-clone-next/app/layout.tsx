@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description: 'Clone Youtube Music',
 };
 
+// RootLayout은 하나로 존재
 export default function RootLayout({
   children,
 }: Readonly<{
