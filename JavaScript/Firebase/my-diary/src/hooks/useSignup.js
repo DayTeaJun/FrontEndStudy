@@ -21,6 +21,7 @@ export const useSignup = () => {
         // 회원가입 완료시 사용자 정보 저장
         const user = userCreadential.user;
         console.log(user);
+        console.log(typeof user);
 
         if (!user) {
           throw new Error('회원가입 실패');

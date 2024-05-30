@@ -40,6 +40,7 @@ export const useCollection = (transaction, myQuery) => {
           // data() 반환값을 객체형태로 저장(doc 아이디 저장)
           result.push({ ...doc.data(), id: doc.id });
         });
+        console.log(result);
 
         setDocuments(result);
         setError(null);
