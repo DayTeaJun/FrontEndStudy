@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { dummyPlaylistArray } from '@/lib/dummyData';
-import PlaylistNav from './playlistNav';
+import PlaylistNav from './PlaylistNav';
 
 function Navigator() {
   // 아래 함수도 클라이언트로 바꿔야함
