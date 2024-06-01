@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import UserIcon from '@/components/UserIcon';
 
 function Header({ children }) {
   return (
@@ -16,6 +17,9 @@ function Header({ children }) {
           <div className="absolute h-[400px] top-0 bg-black opacity-40 w-full"></div>
           <div className="absolute h-[400px] top-0 bg-gradient-to-t from-black opacity-40 w-full"></div>
         </div>
+      </section>
+      <section>
+        <UserIcon />
       </section>
       <section className="absolute">{children}</section>
     </header>
