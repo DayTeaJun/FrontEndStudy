@@ -1,5 +1,5 @@
-import { sleep } from '@/lib/utils';
 import React from 'react';
+import Category from './components/Category';
 
 // (site) 폴더는 경로가 설정되지 않음
 // 폴더를 정리하는 용도로 그룹핑 가능
@@ -20,12 +20,9 @@ const page = async () => {
 
   return (
     <div className="min-h-[600px]">
-      Home
-      <div className="h-[500px] bg-neutral-700">Home</div>
-      <div className="h-[500px] bg-neutral-700">Home</div>
-      <div className="h-[500px] bg-neutral-700">Home</div>
-      <div className="h-[500px] bg-neutral-700">Home</div>
-      <div className="h-[500px] bg-neutral-700">Home</div>
+      <div className="mt-9"></div>
+
+      <Category />
     </div>
   );
 };
