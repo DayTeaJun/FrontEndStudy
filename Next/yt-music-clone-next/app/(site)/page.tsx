@@ -1,5 +1,9 @@
 import React from 'react';
 import Category from './components/Category';
+import PagePadding from '@/components/PagePadding';
+import PlayListCarousel from '@/components/PlayListCarousel';
+import { dummyPlaylistArray } from '@/lib/dummyData';
+import UserIcon from '@/components/UserIcon';
 
 // (site) 폴더는 경로가 설정되지 않음
 // 폴더를 정리하는 용도로 그룹핑 가능
@@ -18,12 +22,26 @@ const page = async () => {
   // root가 2초, 홈에서 4초라면 사용자는 2초 후에 페이지가 보이고, 2초 동안 페이지가 로딩되는 것을 볼 수 있다.
   // 사용자에게 좋은 경험을 주는 것은 root를 제외한 다른 페이지에서 데이터를 불러오는게 좋다.
 
-  return (
-    <div className="min-h-[600px]">
-      <div className="mt-9"></div>
+  const dummyPlaylistArray1 = [...dummyPlaylistArray];
 
-      <Category />
-    </div>
+  return (
+    <PagePadding>
+      <div className="min-h-[600px]">
+        <div className="mt-9"></div>
+        <Category />
+        <div className="mt-12"></div>
+        <PlayListCarousel
+          playlistArray={[...dummyPlaylistArray1]}
+          Thumnail={
+            <div className="w-[56px] h-[56px]">
+              <UserIcon />
+            </div>
+          }
+          title="다시 듣기"
+          subTitle="도도"
+        />
+      </div>
+    </PagePadding>
   );
 };
 
