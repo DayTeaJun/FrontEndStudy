@@ -2,7 +2,7 @@ import React from 'react';
 import Category from './components/Category';
 import PagePadding from '@/components/PagePadding';
 import PlayListCarousel from '@/components/PlayListCarousel';
-import { dummyPlaylistArray } from '@/lib/dummyData';
+import { dummyPlaylistArray, getPlaylistById } from '@/lib/dummyData';
 import UserIcon from '@/components/UserIcon';
 
 // (site) 폴더는 경로가 설정되지 않음
@@ -23,6 +23,9 @@ const page = async () => {
   // 사용자에게 좋은 경험을 주는 것은 root를 제외한 다른 페이지에서 데이터를 불러오는게 좋다.
 
   const dummyPlaylistArray1 = [...dummyPlaylistArray];
+  const dummyPlaylistArray2 = [await getPlaylistById(1)];
+  const dummyPlaylistArray3 = [await getPlaylistById(2)];
+  const dummyPlaylistArray4 = [await getPlaylistById(3)];
 
   return (
     <PagePadding>
@@ -39,6 +42,20 @@ const page = async () => {
           }
           title="다시 듣기"
           subTitle="도도"
+        />
+        <div className="mt-20"></div>
+        <PlayListCarousel
+          playlistArray={[...dummyPlaylistArray2]}
+          title="케이시"
+          subTitle="새로운 앨범"
+        />
+        <PlayListCarousel
+          playlistArray={[...dummyPlaylistArray4]}
+          title="커뮤니티 제공"
+        />
+        <PlayListCarousel
+          playlistArray={[...dummyPlaylistArray3]}
+          title="커버 및 리믹스"
         />
       </div>
     </PagePadding>
