@@ -7,4 +7,6 @@ function PagePadding({ children }) {
   );
 }
 
+// 반응형 tailwind 참고 : tailwind css responsive
+
 export default PagePadding;
