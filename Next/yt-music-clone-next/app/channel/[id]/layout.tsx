@@ -1,11 +1,11 @@
-import React from 'react';
+import Header from "@/components/Header";
+import React from "react";
 
 // layout 다음 page 컴포넌트가 들어온다.
-function layout({ children }) {
+function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      layout 먼저
-      {children}
+    <div className="w-full h-full">
+      <Header>{children}</Header>
     </div>
   );
 }
