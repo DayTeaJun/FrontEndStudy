@@ -19,7 +19,11 @@ const page = async () => {
       <Category />
       <div className="mt-20"></div>
       <PlayListCarousel playlistArray={playlistArray} title="새 앨범 및 싱글" />
+      <div className="mt-20"></div>
       <SongListCarousel songListTop10={songListTop10} title="인기곡" />
+      <div className="mt-20"></div>
+      <div className="mt-20"></div>
+      <div className="mt-20"></div>
     </PagePadding>
   );
 };

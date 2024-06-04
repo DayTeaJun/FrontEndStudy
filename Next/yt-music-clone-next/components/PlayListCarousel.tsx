@@ -37,7 +37,7 @@ const PlayListCarousel: React.FC<PlayListCarouselProps> = ({
               </div>
             </div>
           </article>
-          <div className="relative left-[45px]">
+          <div className="relative left-[-45px]">
             <div className="absolute bottom-[20px]">
               <CarouselPrevious className="right-2" />
               <CarouselNext className="left-2" />

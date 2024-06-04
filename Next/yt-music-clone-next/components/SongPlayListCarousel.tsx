@@ -19,7 +19,7 @@ interface SongListCarouselProps {
 
 const SongColunm = ({ songList = [] }: { songList: TopSong[] }) => {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {songList.map((song, idx) => {
         return <SongCard key={idx} song={song} />;
       })}
@@ -50,7 +50,7 @@ const SongListCarousel: React.FC<SongListCarouselProps> = ({
               </div>
             </div>
           </article>
-          <div className="relative left-[45px]">
+          <div className="relative left-[-45px]">
             <div className="absolute bottom-[20px]">
               <CarouselPrevious className="right-2" />
               <CarouselNext className="left-2" />
@@ -60,10 +60,7 @@ const SongListCarousel: React.FC<SongListCarouselProps> = ({
         <CarouselContent className="mt-4">
           {chunkedTop10SongList?.map((songList, index) => {
             return (
-              <CarouselItem
-                key={index}
-                className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
-              >
+              <CarouselItem key={index} className="lg:basis-1/2">
                 <SongColunm songList={songList} />
               </CarouselItem>
             );
