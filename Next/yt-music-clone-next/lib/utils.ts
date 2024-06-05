@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -27,4 +27,8 @@ export function chunkArray(arr: any[], chunkSize: number) {
     resultArray.push(chunk);
   }
   return resultArray;
+}
+
+export function generateRandomHex() {
+  return '#' + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0');
 }
