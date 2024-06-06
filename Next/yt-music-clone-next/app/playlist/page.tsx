@@ -5,6 +5,7 @@ import React from 'react';
 import HeaderBgChanger from '@/components/HeaderBgChanger';
 import PagePadding from '@/components/PagePadding';
 import PlaylistHead from '@/components/PlaylistHead';
+import SongCardRowExtend from '@/components/SongCardRowExtend';
 
 interface PlaylistPageProps {
   searchParams: {
@@ -32,6 +33,12 @@ const page = async (props: PlaylistPageProps) => {
       <HeaderBgChanger imageSrc={imageSrc} />
       <div className="mt-12"></div>
       <PlaylistHead playlist={playlist} />
+      <div className="mt-12"></div>
+      <section className="flex flex-col gap-2">
+        {playlist.songList.map((song, idx) => {
+          return <SongCardRowExtend song={song} key={idx} />;
+        })}
+      </section>
     </PagePadding>
   );
 };
