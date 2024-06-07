@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-function WhiteButton({ icon, label, className, ...props }) {
+function WhiteButton({ icon = <></>, label, className = '', ...props }) {
   return (
     <div
       className={cn(
