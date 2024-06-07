@@ -1,16 +1,16 @@
-import { Playlist } from "@/types";
-import React from "react";
+import { Playlist } from '@/types';
+import React from 'react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import PlayListCard from "./PlayListCard";
+} from '@/components/ui/carousel';
+import PlayListCard from './PlayListCard';
 
 interface PlayListCarouselProps {
-  title: string;
+  title?: string;
   subTitle?: string;
   Thumbnail?: React.ReactNode;
   playlistArray?: Playlist[];
