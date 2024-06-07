@@ -49,14 +49,17 @@ function Header({ children }) {
   const headRef = useRef();
 
   useEffect(() => {
+    // 현재 ref 참조하는 것이 변경될 수 있어, 변경되기 전의 ref 값을 복사하여 값이 변경되더라도 그대로 참조될 수 있도록 변경
+    const currentHeadRef = headRef.current;
+
     const handleScroll = () => {
       const scrollValue = headRef?.current?.scrollTop;
       setIsScrolled(scrollValue !== 0);
     };
 
-    headRef?.current?.addEventListener('scroll', handleScroll);
+    currentHeadRef?.addEventListener('scroll', handleScroll);
     return () => {
-      headRef?.current?.removeEventListener('scroll', handleScroll);
+      currentHeadRef?.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
