@@ -8,17 +8,23 @@ import { FiThumbsUp } from 'react-icons/fi';
 import { FiMoreVertical } from 'react-icons/fi';
 import IconButton from './elements/IconButton';
 import { useRouter } from 'next/navigation';
+import usePlayerState from '@/hooks/usePlayerState';
 
 interface SongCardRowExtend {
   song: Song;
 }
 
 const SongCardRowExtend: React.FC<SongCardRowExtend> = ({ song }) => {
+  const { addSongList } = usePlayerState();
   const { channel, channelId } = song;
   const { push } = useRouter();
 
   const onClickChannel = () => {
     push(`/channel/${channelId}`);
+  };
+
+  const onClickPlay = () => {
+    addSongList([song]);
   };
 
   return (
@@ -30,7 +36,10 @@ const SongCardRowExtend: React.FC<SongCardRowExtend> = ({ song }) => {
           fill
           className="object-cover"
         ></Image>
-        <section className="hidden group-hover:flex w-[48px] h-[48px] items-center justify-center bg-black absolute top-0 cursor-pointer">
+        <section
+          onClick={onClickPlay}
+          className="hidden group-hover:flex w-[48px] h-[48px] items-center justify-center bg-black absolute top-0 cursor-pointer"
+        >
           <FiPlayCircle size={20} />
         </section>
       </div>

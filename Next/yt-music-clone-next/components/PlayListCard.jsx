@@ -6,19 +6,24 @@ import { useRouter } from 'next/navigation';
 import { MdMoreVert } from 'react-icons/md';
 import { FiPlay } from 'react-icons/fi';
 import IconButton from './elements/IconButton';
+import usePlayerState from '@/hooks/usePlayerState';
 
 function PlayListCard({ playlist = {} } = {}) {
+  const { addSongList } = usePlayerState();
   const { push } = useRouter();
   const { id, owner = '', playlistName = '', songList = [] } = playlist ?? {};
   const songListLen = songList.length;
   const imgSrc = getRandomElementFromArray(songList)?.imageSrc;
-  console.log(songList);
 
   const onClickCard = () => {
     if (id) push(`/playlist?list=${id}`);
   };
 
-  const onClickPlay = () => {};
+  const onClickPlay = (e) => {
+    // 이벤트 클릭시 현재 컴포넌트에서 상위 컴포넌트의 이벤트 전파가 멈추는 함수
+    e.stopPropagation();
+    addSongList(songList);
+  };
 
   return (
     <article className="h-[240px] cursor-pointer group">

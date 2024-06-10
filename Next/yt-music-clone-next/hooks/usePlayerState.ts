@@ -15,15 +15,11 @@ interface PlayerState {
 }
 
 const usePlayerState = create<PlayerState>((set) => ({
-  isVisiblePlayer: true,
+  isVisiblePlayer: false,
   setIsVisiblePlayer: (isVisiblePlayer: boolean) => set({ isVisiblePlayer }),
   activeSong: null,
   prevPlayerQueue: [],
-  nextPlayerQueue: [
-    dummyAllSongList[1],
-    dummyAllSongList[2],
-    dummyAllSongList[3],
-  ],
+  nextPlayerQueue: [],
   addSongList: (songList: Song[]) =>
     // prev 이전상태의 값을 가져와서 다음상태를 리턴
     set((prev) => {
