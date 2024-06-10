@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Slider as PlayerSlider } from '@/components/ui/playerSlider';
 import { useAudio } from 'react-use';
 import {
@@ -15,25 +15,70 @@ import Image from 'next/image';
 import { RxLoop } from 'react-icons/rx';
 
 function PlayerContent() {
-  const { activeSong } = usePlayerState();
+  const { activeSong, prevPlayerQueue, nextPlayerQueue, playBack, playNext } =
+    usePlayerState();
 
   const [audio, state, controls, ref] = useAudio({
     src: activeSong?.src,
-    autoPlay: false,
+    autoPlay: true,
   });
 
   const isLoading = activeSong?.src && state.buffered?.length === 0;
   // useAudio 내장함수 buffered
   // 로딩 상태
 
-  const onClickPreBtn = () => {};
-  const onClickStartBtn = () => {
-    controls.play();
+  const onClickPrevBtn = () => {
+    if (state.playing && state.time > 10) {
+      // 뒤로가기 버튼을 눌렀을 때, 10이상 재생되었다면 초기화
+      controls.seek(0);
+      return;
+    }
+    // 이전 노래가 없다면 아무것도 하지 않음
+    if (prevPlayerQueue.length === 0) {
+      return;
+    }
+    // 이전 노래가 있다면 뒤로 감
+    playBack();
   };
+
+  const onClickStartBtn = () => {
+    // 현재 재생중인 노래가 있다면 재생
+    if (activeSong) {
+      controls.play();
+      // useAudio 내장함수
+    } else {
+      // 없다면 다음 노래
+      playNext();
+    }
+  };
+
   const onClickPauseBtn = () => {
     controls.pause();
+    // useAudio 내장함수
   };
-  const onClickNextBtn = () => {};
+
+  // useEffect에서 사용되면 자주 재생성이 되므로,
+  // 불필요 함수 재생성 방지, 의존성 배열이 변경되면 재생성
+  const onClickNextBtn = useCallback(() => {
+    // 다음 노래가 있지 않다면 재생 멈춤
+    if (nextPlayerQueue.length === 0) {
+      controls.pause();
+    } else {
+      // 있다면 다음 노래로 넘김
+      playNext();
+    }
+  }, [controls, playNext, nextPlayerQueue]);
+
+  useEffect(() => {
+    const refAudio = ref.current;
+    // ended 는 노래의 재생이 끝났는지 알 수 있음
+    // refAudio의 ended 라는 이벤트 발생시 다음곡으로 넘김
+    refAudio.addEventListener('ended', onClickNextBtn);
+    return () => {
+      refAudio.removeEventListener('ended', onClickNextBtn);
+    };
+    // ref 는 audio 참조중
+  }, [ref, onClickNextBtn]);
 
   return (
     <div className="h-full w-full relative">
@@ -45,6 +90,7 @@ function PlayerContent() {
           onValueChange={(value) => {
             controls.seek(value);
           }}
+          max={state.duration}
         />
       </div>
       {audio}
@@ -53,7 +99,7 @@ function PlayerContent() {
           <IoPlaySkipBackSharp
             size={24}
             className="cursor-pointer"
-            onClick={onClickPreBtn}
+            onClick={onClickPrevBtn}
           />
           {isLoading ? (
             <ClipLoader color="#FFF" />
