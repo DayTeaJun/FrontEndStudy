@@ -82,9 +82,13 @@ const WindMap = () => {
 
           // 애니메이션을 위한 함수
           function animateParticles() {
-            context.clearRect(0, 0, canvas.width, canvas.height);
+            // 기존 입자를 덮어 입자의 잔상만 남김
+            context.globalCompositeOperation = 'destination-in';
+            context.fillStyle = 'rgba(0, 0, 0, 0.9)'; // 이전 프레임을 거의 지움 (잔상 유지)
+            context.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 입자 이동 및 그리기
+            // 입자를 다시 그리기
+            context.globalCompositeOperation = 'source-over'; // 새 입자 그리기
             particles.forEach((particle) => {
               context.beginPath();
               context.arc(particle.x, particle.y, 1.5, 0, 2 * Math.PI); // 입자 크기: 1.5
