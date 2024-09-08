@@ -6,9 +6,25 @@ import OSM from 'ol/source/OSM';
 import ImageLayer from 'ol/layer/Image';
 import ImageCanvasSource from 'ol/source/ImageCanvas';
 import { fromLonLat } from 'ol/proj';
+import axios from 'axios';
 
 const WindMap = () => {
   const mapRef = useRef(null); // 맵을 렌더링할 DOM 요소 참조
+
+  axios.defaults.baseURL = 'http://localhost:3009';
+
+  const getList = async () => {
+    try {
+      const response = await axios.get('/todos');
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getList();
+  }, []);
 
   useEffect(() => {
     // 지도 초기화
