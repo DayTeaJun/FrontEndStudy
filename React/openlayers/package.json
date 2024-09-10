@@ -11,8 +11,11 @@
     "start": "json-server --watch mock.json -p 3009"
   },
   "dependencies": {
+    "@sakitam-gis/mapbox-wind": "^2.0.4",
     "axios": "^1.7.7",
-    "ol": "^10.0.0",
+    "mapbox-gl": "^3.6.0",
+    "ol": "^10.1.0",
+    "ol-wind": "^1.1.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
