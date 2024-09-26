@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import 'ol/ol.css';
 import { Map as OLMap, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
@@ -33,10 +32,17 @@ const WindMap = () => {
       .then((windData) => {
         const windLayer = new WindLayer(windData, {
           windOptions: {
-            velocityScale: 0.05,
-            paths: 3200,
-            lineWidth: 3,
+            velocityScale: 1 / 20,
+            paths: 5000,
+            // eslint-disable-next-line no-unused-vars
+            colorScale: () => {
+              // console.log(m);
+              return '#3c90ff';
+            },
+            width: 3,
+            generateParticleOption: false,
           },
+          projection: 'EPSG:4326',
         });
         olMap.addLayer(windLayer);
       });
