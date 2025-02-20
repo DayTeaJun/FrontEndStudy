@@ -1,7 +1,12 @@
 "use client";
-import React from "react";
+import { getTodos } from "@/apis/todos-no-ris";
+import React, { useEffect } from "react";
 
 function TodoContainer() {
+  useEffect(() => {
+    getTodos();
+  }, []);
+
   return <div>TodoContainer</div>;
 }
 
