@@ -1,5 +1,13 @@
 "use client";
-import { getTodos, getTodosById, getTodosBySearch } from "@/apis/todos-no-ris";
+import {
+  createTodos,
+  deleteTodoHard,
+  deleteTodoSoft,
+  getTodos,
+  getTodosById,
+  getTodosBySearch,
+  updateTodos,
+} from "@/apis/todos-no-ris";
 import React, { useEffect } from "react";
 
 function TodoContainer() {
@@ -7,6 +15,10 @@ function TodoContainer() {
     getTodos();
     getTodosById(4);
     getTodosBySearch("여기");
+    // createTodos("next.js에서 todo를 생성함");
+    updateTodos(6, "todo 업데이트함");
+    deleteTodoSoft(7);
+    // deleteTodoHard(7);
   }, []);
 
   return <div>TodoContainer</div>;
