@@ -9,7 +9,6 @@ const page = async () => {
   console.log("api 로딩 완료 후 페이지 보이도록");
   return (
     <div>
-      page
       <TodoContainer />
     </div>
   );

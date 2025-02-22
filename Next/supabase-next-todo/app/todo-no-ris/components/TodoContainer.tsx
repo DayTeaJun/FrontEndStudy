@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import useTodosController from "../hooks/useTodosController";
+import TodoList from "@/components/ui/TodoList";
 
 function TodoContainer() {
   // useEffect(() => {
@@ -17,7 +18,11 @@ function TodoContainer() {
   const { loading, todos } = useTodosController();
   console.log(loading, todos);
 
-  return <div>TodoContainer</div>;
+  return (
+    <div>
+      <TodoList sharedUserFullName={"유저"} ownerUserId={123} />
+    </div>
+  );
 }
 
 export default TodoContainer;
