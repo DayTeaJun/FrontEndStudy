@@ -20,7 +20,12 @@ function TodoContainer() {
 
   return (
     <div>
-      <TodoList sharedUserFullName={"유저"} ownerUserId={123} />
+      <TodoList
+        sharedUserFullName={"유저"}
+        ownerUserId={123}
+        loading={loading}
+        todoListData={todos}
+      />
     </div>
   );
 }
