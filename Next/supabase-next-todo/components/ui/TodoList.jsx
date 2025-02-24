@@ -58,9 +58,16 @@ function TodoList({
         </article>
         <div className="h-[2px] my-10 bg-black"></div>
         {todoListData?.length >= 1 ? (
-          <ul>
+          <ul className="flex flex-col gap-4">
             {todoListData?.map((todo) => {
-              return <TodoListItem todo={todo} key={todo?.id} />;
+              return (
+                <TodoListItem
+                  todo={todo}
+                  key={todo?.id}
+                  onDelete={() => {}}
+                  onUpdate={() => {}}
+                />
+              );
             })}
           </ul>
         ) : (
