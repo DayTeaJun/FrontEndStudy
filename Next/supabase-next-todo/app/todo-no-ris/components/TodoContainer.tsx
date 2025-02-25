@@ -23,7 +23,6 @@ function TodoContainer() {
     onSearchTodos,
     onUpdateTodos,
   } = useTodosController();
-  console.log(loading, todos);
 
   return (
     <div>

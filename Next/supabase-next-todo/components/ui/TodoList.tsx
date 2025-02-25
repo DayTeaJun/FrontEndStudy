@@ -5,7 +5,19 @@ import { CiShare2 } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { useCopyToClipboard } from "usehooks-ts";
 import TodoListItem from "./TodoListItem";
+import { TodoDto } from "@/app/todo-no-ris/hooks/useTodosController";
 
+interface TodoListProps {
+  sharedUserFullName: string;
+  ownerUserId: number;
+  loading?: boolean;
+  todoListData?: TodoDto[];
+  isReadOnly?: boolean;
+  onUpdate?: (id: number, updatedContent: string) => void;
+  onCreate?: () => void;
+  onDelete?: (id: number) => void;
+  onSearch?: (terms: string) => void;
+}
 function TodoList({
   sharedUserFullName,
   ownerUserId,
@@ -16,8 +28,8 @@ function TodoList({
   onCreate = () => {},
   onDelete = (id) => {},
   onSearch = (terms) => {},
-}) {
-  const [userSearchInput, setUserSearchInput] = useState();
+}: TodoListProps) {
+  const [userSearchInput, setUserSearchInput] = useState("");
   const [copiedText, copy] = useCopyToClipboard();
 
   const handleCopy = () => {

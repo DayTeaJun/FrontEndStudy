@@ -1,8 +1,14 @@
-import { getTodos } from "@/apis/todos-no-ris";
+import {
+  createTodos,
+  deleteTodoSoft,
+  getTodos,
+  getTodosBySearch,
+  updateTodos,
+} from "@/apis/todos-no-ris";
 import { Database } from "@/database.types";
 import { useEffect, useState } from "react";
 
-type TodoDto = Database["public"]["Tables"]["todos_no_ris"]["Row"];
+export type TodoDto = Database["public"]["Tables"]["todos_no_ris"]["Row"];
 
 const useTodosController = () => {
   const [loading, setLoading] = useState(true);
@@ -26,7 +32,40 @@ const useTodosController = () => {
     onGetTodos();
   }, []);
 
-  return { loading, todos };
+  const onCreateEmptyTodos = async () => {
+    await createTodos("");
+    await onGetTodos();
+  };
+
+  const onUpdateTodos = async (id: number, content: string) => {
+    await updateTodos(id, content);
+    await onGetTodos();
+  };
+
+  const onDeleteTodos = async (id: number) => {
+    await deleteTodoSoft(id);
+    await onGetTodos();
+  };
+
+  const onSearchTodos = async (terms: string) => {
+    if (terms) {
+      const todoResult = await getTodosBySearch(terms);
+      if (todoResult) {
+        setTodos(todoResult);
+      }
+    } else {
+      await onGetTodos();
+    }
+  };
+
+  return {
+    loading,
+    todos,
+    onCreateEmptyTodos,
+    onDeleteTodos,
+    onSearchTodos,
+    onUpdateTodos,
+  };
 };
 
 export default useTodosController;
