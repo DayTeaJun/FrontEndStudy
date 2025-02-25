@@ -15,7 +15,14 @@ function TodoContainer() {
   //   deleteTodoHard(7);
   // }, []);
 
-  const { loading, todos } = useTodosController();
+  const {
+    loading,
+    todos,
+    onCreateEmptyTodos,
+    onDeleteTodos,
+    onSearchTodos,
+    onUpdateTodos,
+  } = useTodosController();
   console.log(loading, todos);
 
   return (
@@ -25,6 +32,11 @@ function TodoContainer() {
         ownerUserId={123}
         loading={loading}
         todoListData={todos}
+        isReadOnly={false}
+        onUpdate={onUpdateTodos}
+        onCreate={onCreateEmptyTodos}
+        onDelete={onDeleteTodos}
+        onSearch={onSearchTodos}
       />
     </div>
   );

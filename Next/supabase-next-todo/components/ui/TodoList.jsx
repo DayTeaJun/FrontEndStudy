@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { CiShare2 } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
 import { useCopyToClipboard } from "usehooks-ts";
@@ -9,7 +11,13 @@ function TodoList({
   ownerUserId,
   loading = false,
   todoListData = [],
+  isReadOnly = false,
+  onUpdate = (id, updatedContent) => {},
+  onCreate = () => {},
+  onDelete = (id) => {},
+  onSearch = (terms) => {},
 }) {
+  const [userSearchInput, setUserSearchInput] = useState();
   const [copiedText, copy] = useCopyToClipboard();
 
   const handleCopy = () => {
@@ -22,6 +30,11 @@ function TodoList({
       .catch((error) => {
         console.error("Failed to copy!", error);
       });
+  };
+
+  const handleSearchEnd = () => {
+    onSearch(userSearchInput);
+    setUserSearchInput("");
   };
 
   return (
@@ -42,20 +55,34 @@ function TodoList({
             </div>
           )}
         </article>
-        <article className="flex flex-col sm:flex-row gap-4 mt-8">
-          <div className="flex flex-1 h-[60px]">
-            <input
-              className="p-4 flex-1 bg-yellow-300 border border-black rounded-l-2xl font-bold"
-              type="text"
-            />
-            <div className="w-[60px] flex justify-center items-center bg-black rounded-r-2xl cursor-pointer">
-              <IoSearchOutline size={40} color="#fff" />
+        {!isReadOnly && (
+          <article className="flex flex-col sm:flex-row gap-4 mt-8">
+            <div className="flex flex-1 h-[60px]">
+              <input
+                value={userSearchInput}
+                onChange={(e) => setUserSearchInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSearchEnd();
+                }}
+                className="p-4 flex-1 bg-yellow-300 border border-black rounded-l-2xl font-bold"
+                type="text"
+              />
+              <div
+                onClickCapture={() => handleSearchEnd()}
+                className="w-[60px] flex justify-center items-center bg-black rounded-r-2xl cursor-pointer"
+              >
+                <IoSearchOutline size={40} color="#fff" />
+              </div>
             </div>
-          </div>
-          <div className="h-[60px] w-[200px] flex justify-center items-center bg-sky-700 border-black rounded-2xl font-bold cursor-pointer text-[20px]">
-            New Task
-          </div>
-        </article>
+            <div
+              onClick={onCreate}
+              className="h-[60px] w-[200px] flex justify-center items-center bg-sky-700 border-black rounded-2xl font-bold cursor-pointer text-[20px]"
+            >
+              New Task
+            </div>
+          </article>
+        )}
+
         <div className="h-[2px] my-10 bg-black"></div>
         {todoListData?.length >= 1 ? (
           <ul className="flex flex-col gap-4">
@@ -64,8 +91,8 @@ function TodoList({
                 <TodoListItem
                   todo={todo}
                   key={todo?.id}
-                  onDelete={() => {}}
-                  onUpdate={() => {}}
+                  onUpdate={onUpdate}
+                  onDelete={onDelete}
                 />
               );
             })}
