@@ -16,7 +16,7 @@ export const createServerSideClient = async (serverComponent = false) => {
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABSE_URL!,
-    process.env.NEXT_PUBLIC_SUPABSE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         // options - cookie option
@@ -46,7 +46,7 @@ export const createServerSideMiddleware = async (
 ) => {
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABSE_URL!,
-    process.env.NEXT_PUBLIC_SUPABSE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get: (key) => getCookie(key, { req, res }),
