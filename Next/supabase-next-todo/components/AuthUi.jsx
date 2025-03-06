@@ -23,6 +23,25 @@ function AuthUi() {
     window.location.reload();
   };
 
+  // 아래 Auth 컴포넌트 UI 아닌, 로그인 함수를 따로 만들어서 사용 가능
+  const handleGoolgeLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_AUTH_REDIRECT_TO,
+      },
+    });
+  };
+
+  const handleGithubLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_AUTH_REDIRECT_TO,
+      },
+    });
+  };
+
   useEffect(() => {
     getUserInfo();
   }, []);
