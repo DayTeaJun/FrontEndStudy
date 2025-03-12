@@ -4,11 +4,11 @@ import {
   getTodos,
   getTodosBySearch,
   updateTodos,
-} from "@/apis/todos-no-ris";
+} from "@/apis/todos-no-rls";
 import { Database } from "@/types/supabase";
 import { useEffect, useState } from "react";
 
-export type TodoDto = Database["public"]["Tables"]["todos_no_ris"]["Row"];
+export type TodoDto = Database["public"]["Tables"]["todos_no_rls"]["Row"];
 
 const useTodosController = () => {
   const [loading, setLoading] = useState(true);

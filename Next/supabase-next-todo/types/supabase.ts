@@ -9,7 +9,7 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      todos_no_ris: {
+      todos_no_rls: {
         Row: {
           content: string | null
           created_at: string
@@ -33,7 +33,7 @@ export type Database = {
         }
         Relationships: []
       }
-      todos_with_ris: {
+      todos_with_rls: {
         Row: {
           content: string | null
           created_at: string

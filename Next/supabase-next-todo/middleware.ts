@@ -23,5 +23,5 @@ export function middleware(request: NextRequest) {
 
 // matcher 에 따른 경로에 위 미들웨어를 통과할 수 있도록 설정 (모든 경로 : :/path*)
 export const config = {
-  matcher: ["/", "/todo-no-ris", "/api/:path*"],
+  matcher: ["/", "/todo-no-rls", "/api/:path*"],
 };

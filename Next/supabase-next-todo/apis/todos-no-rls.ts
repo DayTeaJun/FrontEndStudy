@@ -5,7 +5,7 @@ import { createSupabaseBrowserClient } from "@/lib/client/supabase";
 export const getTodos = async () => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .select("*")
     .is("deleted_at", null)
     .order("id", {
@@ -19,7 +19,7 @@ export const getTodos = async () => {
 export const getTodosById = async (id: number) => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .select("*")
     .is("deleted_at", null)
     .eq("id", id);
@@ -30,7 +30,7 @@ export const getTodosById = async (id: number) => {
 export const getTodosBySearch = async (terms: string) => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .select("*")
     .is("deleted_at", null)
     .ilike("content", `%${terms}%`) // 대소문자 구별 없이 검색
@@ -42,7 +42,7 @@ export const getTodosBySearch = async (terms: string) => {
 export const createTodos = async (content: string) => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .insert({
       content: content,
     })
@@ -54,7 +54,7 @@ export const createTodos = async (content: string) => {
 export const updateTodos = async (id: number, content: string) => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .update({
       content: content,
       updated_at: new Date().toISOString(), // 업데이트 할때 업데이트 시간도 변경하도록 함
@@ -68,7 +68,7 @@ export const updateTodos = async (id: number, content: string) => {
 export const deleteTodoSoft = async (id: number) => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .update({
       deleted_at: new Date().toISOString(),
       // 요구사항에 따라 다름 (업데이트 시간을 넣을지)
@@ -83,7 +83,7 @@ export const deleteTodoSoft = async (id: number) => {
 export const deleteTodoHard = async (id: number) => {
   const supabase = createSupabaseBrowserClient();
   const result = await supabase
-    .from("todos_no_ris")
+    .from("todos_no_rls")
     .delete() // 삭제
     .eq("id", id)
     .select();
