@@ -1,6 +1,6 @@
 // 서버 클라이언트 설정
 
-import { Database } from "@/database.types";
+import { Database } from "@/types/supabase";
 import { createServerClient } from "@supabase/ssr";
 import { getCookie, setCookie } from "cookies-next";
 import { cookies } from "next/headers";

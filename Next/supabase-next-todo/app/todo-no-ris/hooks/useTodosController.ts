@@ -5,7 +5,7 @@ import {
   getTodosBySearch,
   updateTodos,
 } from "@/apis/todos-no-ris";
-import { Database } from "@/database.types";
+import { Database } from "@/types/supabase";
 import { useEffect, useState } from "react";
 
 export type TodoDto = Database["public"]["Tables"]["todos_no_ris"]["Row"];
