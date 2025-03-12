@@ -47,6 +47,8 @@ export const createTodos = async (content: string) => {
       content: content,
     })
     .select(); // 결과물
+
+  console.log(result);
   return result.data;
 };
 
@@ -61,6 +63,7 @@ export const updateTodos = async (id: number, content: string) => {
     })
     .eq("id", id) // 어떤 대상을 업데이트 할지 정할 수 있음
     .select(); // 업데이트 결과물
+
   return result.data;
 };
 
