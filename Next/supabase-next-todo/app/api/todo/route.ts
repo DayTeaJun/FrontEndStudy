@@ -1,5 +1,4 @@
 import { getTodos } from "@/actions/todo/todo.action";
-import { createServerSideClient } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
