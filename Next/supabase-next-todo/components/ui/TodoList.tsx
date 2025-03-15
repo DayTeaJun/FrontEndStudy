@@ -8,8 +8,8 @@ import TodoListItem from "./TodoListItem";
 import { TodoDto } from "@/app/todo-no-ris/hooks/useTodosController";
 
 interface TodoListProps {
-  sharedUserFullName: string;
-  ownerUserId: string;
+  sharedUserFullName?: string;
+  ownerUserId?: string;
   loading?: boolean;
   todoListData?: TodoDto[];
   isReadOnly?: boolean;

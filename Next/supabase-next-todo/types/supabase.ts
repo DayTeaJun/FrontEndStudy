@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+          username: string | null
+          website: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+          username?: string | null
+          website?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+          username?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       todos_no_rls: {
         Row: {
           content: string | null
@@ -40,7 +67,7 @@ export type Database = {
           deleted_at: string | null
           id: number
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           content?: string | null
@@ -48,7 +75,7 @@ export type Database = {
           deleted_at?: string | null
           id?: number
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Update: {
           content?: string | null
@@ -56,7 +83,7 @@ export type Database = {
           deleted_at?: string | null
           id?: number
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: []
       }
