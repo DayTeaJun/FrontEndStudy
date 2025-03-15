@@ -28,7 +28,7 @@ function TodoContainer() {
     <div>
       <TodoList
         sharedUserFullName={"유저"}
-        ownerUserId={123}
+        ownerUserId="123"
         loading={loading}
         todoListData={todos}
         isReadOnly={false}

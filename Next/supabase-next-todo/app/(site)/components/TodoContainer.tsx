@@ -16,12 +16,11 @@ function TodoContainer({ ownerUserId }: TodoContainerProps) {
     onDeleteTodos,
     onSearchTodos,
     onUpdateTodos,
-  } = useTodosController();
+  } = useTodosController(ownerUserId);
 
   return (
     <div>
       <TodoList
-        sharedUserFullName={"유저"}
         ownerUserId={ownerUserId}
         loading={loading}
         todoListData={todos}

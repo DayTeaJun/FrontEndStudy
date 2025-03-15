@@ -6,6 +6,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useCopyToClipboard } from "usehooks-ts";
 import TodoListItem from "./TodoListItem";
 import { TodoDto } from "@/app/todo-no-ris/hooks/useTodosController";
+import TodoListItemReadOnly from "./TodoListReadOnly";
 
 interface TodoListProps {
   sharedUserFullName?: string;
@@ -99,6 +100,10 @@ function TodoList({
         {todoListData?.length >= 1 ? (
           <ul className="flex flex-col gap-4">
             {todoListData?.map((todo) => {
+              if (isReadOnly) {
+                return <TodoListItemReadOnly key={todo?.id} todo={todo} />;
+              }
+
               return (
                 <TodoListItem
                   todo={todo}
