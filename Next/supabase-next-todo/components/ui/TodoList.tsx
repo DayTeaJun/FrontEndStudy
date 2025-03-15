@@ -9,7 +9,7 @@ import { TodoDto } from "@/app/todo-no-ris/hooks/useTodosController";
 
 interface TodoListProps {
   sharedUserFullName: string;
-  ownerUserId: number;
+  ownerUserId: string;
   loading?: boolean;
   todoListData?: TodoDto[];
   isReadOnly?: boolean;
@@ -33,7 +33,7 @@ function TodoList({
   const [copiedText, copy] = useCopyToClipboard();
 
   const handleCopy = () => {
-    const shareLink = `${"todoList 공유할 링크"}/share/${ownerUserId}`;
+    const shareLink = `${process.env.NEXT_PUBLIC_AUTH_REDIRECT_TO_HOME}/share/${ownerUserId}`;
 
     copy(shareLink)
       .then(() => {
