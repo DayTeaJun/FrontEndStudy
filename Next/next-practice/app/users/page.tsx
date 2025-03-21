@@ -21,7 +21,7 @@ function UsersPage() {
 
   return (
     <main>
-      <h1>users</h1>
+      <h1 className="text-black text-[24px]">users</h1>
       {users.map((user) => (
         <p key={user.id}>{user.name}</p>
       ))}

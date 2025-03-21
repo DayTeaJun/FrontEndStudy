@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import RecoilProvider from "./config/RecoilProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,8 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <p>From Layout</p>
-        {children}
+        <RecoilProvider>
+          <p>From Layout</p>
+          {children}
+        </RecoilProvider>
       </body>
     </html>
   );
