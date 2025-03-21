@@ -1,4 +1,17 @@
+import { Metadata } from "next";
 import Link from "next/link";
+
+// seo 작업을 위한 metadata
+// title : 페이지 제목
+// description : 페이지 설명\
+// static metadata : 페이지의 고정된 정보
+export const metadata: Metadata = {
+  title: "Next.js Practice",
+  description: "Next.js 연습정리",
+};
+
+// dynamic metadata : 페이지의 동적인 정보 (동적 라우팅)
+// 페이지가 렌더링 될 때마다 변경되는 정보
 
 export default function Home() {
   return (
