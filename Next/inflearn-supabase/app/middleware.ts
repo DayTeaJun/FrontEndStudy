@@ -72,7 +72,7 @@ export async function middleware(request) {
 }
 
 // 어떤 request를 받을때는 미들웨어를 실행하지 않을지 설정
-// 예) 정적 파일이나 이미지 리소스 요청은 middleware가 작동하지 않도록 의도적으로 제외
+// 예) 정적 파일이나 이미지 리소스 요청(next image)은 middleware가 작동하지 않도록 의도적으로 제외
 export const config = {
   matcher: [
     /*
@@ -85,3 +85,9 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
+
+// 인증이 불필요하다면 인증이 필요한 곳에서만 조건을 좁히는 방법이 있음
+// 아래와 같이 matcher를 통해 특정 경로에만 미들웨어를 적용할 수 있음
+// export const config = {
+//     matcher: ["/dashboard/:path*", "/api/secure/:path*"],
+//   };
