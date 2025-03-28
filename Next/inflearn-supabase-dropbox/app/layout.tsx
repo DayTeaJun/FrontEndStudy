@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ReactQueryClientProvider from "@/config/ReactQueryClientProvider";
-import { MaterialTailwindThemeProvider } from "@/config/material-tailwind-theme-provider";
+
+import { MaterialTailwindThemeProvider } from "@/components/material-tailwind-theme-provider";
+import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
