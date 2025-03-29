@@ -9,17 +9,24 @@ function handleError(error) {
 
 export async function uploadFile(formData: FormData) {
   const supabase = await createServerSupabaseClient();
-  const file = formData.get("file") as File;
 
-  const { data, error } = await supabase.storage
-    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
-    .upload(file.name, file, { upsert: true }); // upsert: true는 같은 이름의 파일이 있을 경우 덮어쓰기를 의미함.
+  // formData.entries() 은 배열로 바꿔주지만, 이터러블(map 사용 불가) 로 나오기때문에 Array.from 으로 배열로 변환
+  const files = Array.from(formData.entries()).map(
+    ([name, file]) => file as File
+  );
 
-  if (error) {
-    handleError(error);
-  }
+  // 업로드 파일 병렬처리
+  const results = await Promise.all(
+    files.map(
+      (file) =>
+        supabase.storage
+          .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET!)
+          .upload(file.name, file, { upsert: true })
+      // upsert: true는 같은 이름의 파일이 있을 경우 덮어쓰기를 의미함.
+    )
+  );
 
-  return data;
+  return results;
 }
 
 export async function searchFiles(search: string = "") {
