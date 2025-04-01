@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { MaterialTailwindThemeProvider } from "@/components/material-tailwind-theme-provider";
-import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
+import ReactQueryClientProvider from "@/config/ReactQueryClientProvider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import RecoilProvider from "@/config/RecoilProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,13 +30,15 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ReactQueryClientProvider>
-          <MaterialTailwindThemeProvider>
-            <Header />
-            {children}
-            <Footer />
-          </MaterialTailwindThemeProvider>
-        </ReactQueryClientProvider>
+        <RecoilProvider>
+          <ReactQueryClientProvider>
+            <MaterialTailwindThemeProvider>
+              <Header />
+              {children}
+              <Footer />
+            </MaterialTailwindThemeProvider>
+          </ReactQueryClientProvider>
+        </RecoilProvider>
       </body>
     </html>
   );
