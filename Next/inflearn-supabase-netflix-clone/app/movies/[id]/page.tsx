@@ -20,7 +20,7 @@ export default async function MovieDetail({ params }) {
   return (
     <main className="py-16 flex items-center bg-blue-50 absolute top-0 bottom-0 left-0 right-0">
       {movie ? (
-        <UI movie={movie} id={params.id} />
+        <UI movie={movie} key={params.id} />
       ) : (
         <div>Movie does not exisis</div>
       )}
