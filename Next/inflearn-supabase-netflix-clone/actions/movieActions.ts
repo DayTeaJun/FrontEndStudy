@@ -2,21 +2,37 @@
 
 import { createServerSupabaseClient } from "@/utils/supabase/server";
 
-export async function searchMovies(search = "") {
+export async function searchMovies({ search, page, pageSize }) {
   const supabase = await createServerSupabaseClient();
 
-  const { data, error } = await supabase
+  // count 전체 데이터 개수 값
+  const { data, count, error } = await supabase
     .from("movie")
     .select("*")
-    .like("title", `%${search}%`);
+    .like("title", `%${search}%`)
+    .range((page - 1) * pageSize, page * pageSize - 1); // 만약 현재 페이지가 2 이면 12 ~ 23 번째까지 데이터를 불러옴
 
   if (error) {
     console.error(error);
-    // 강의에선 외부에 try catch문이 없으나, try catch문을 외부에서 잡아주도록 수정해야함(에러 전달하기 위함)
-    throw error;
+
+    return {
+      data: [],
+      count: 0,
+      page: null, // 다음 페이지가 없다는 것을 알림
+      pageSize: null,
+      error,
+    };
   }
 
-  return data;
+  // 만약 전체 데이터 갯수가 23개면, 현재 페이지 2, 페이지의 데이터 개수 12개 일때, 23 > 24 가 되어 false가 됨
+  const hasNextPage = count && count > page * pageSize;
+
+  return {
+    data,
+    page,
+    pageSize,
+    hasNextPage,
+  };
 }
 
 export async function getMovie(id: string) {
