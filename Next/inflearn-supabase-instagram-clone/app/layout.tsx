@@ -17,6 +17,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const loggedIn = true;
+
   return (
     <html lang="en">
       <head>
@@ -33,7 +35,7 @@ export default function RootLayout({
         <RecoilProvider>
           <ReactQueryClientProvider>
             <MaterialTailwindThemeProvider>
-              {children}
+              {loggedIn ? <MainLayout>{children}</MainLayout> : <Auth />}
             </MaterialTailwindThemeProvider>
           </ReactQueryClientProvider>
         </RecoilProvider>
