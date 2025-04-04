@@ -10,7 +10,7 @@ export default function SignUp({ setView }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="pt-10 pb-6 px-10 w-full flex flex-col items-center justify-center max-w-lg border border-gray-400 bg-white">
+      <div className="pt-10 pb-6 px-10 w-full flex flex-col items-center justify-center max-w-lg border border-gray-400 bg-white gap-2">
         <img src={"/images/inflearngram.png"} alt="" className="w-60 mb-6" />
         <Input
           value={email}

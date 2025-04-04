@@ -6,6 +6,8 @@ import ReactQueryClientProvider from "@/config/ReactQueryClientProvider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import RecoilProvider from "@/config/RecoilProvider";
+import MainLayout from "@/components/layouts/MainLayout";
+import AuthPage from "@/components/auth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = true;
+  const loggedIn = false;
 
   return (
     <html lang="en">
@@ -35,7 +37,7 @@ export default function RootLayout({
         <RecoilProvider>
           <ReactQueryClientProvider>
             <MaterialTailwindThemeProvider>
-              {loggedIn ? <MainLayout>{children}</MainLayout> : <Auth />}
+              {loggedIn ? <MainLayout>{children}</MainLayout> : <AuthPage />}
             </MaterialTailwindThemeProvider>
           </ReactQueryClientProvider>
         </RecoilProvider>
