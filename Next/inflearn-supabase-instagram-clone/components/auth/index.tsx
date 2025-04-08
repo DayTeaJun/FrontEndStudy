@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import SignUp from "./signup";
-import SignIn from "./signin";
+import SignUp from "./signin";
+import SignIn from "./signup";
 
 // signup, signin 관리하는 진입점 컴포넌트
 

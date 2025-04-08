@@ -1,12 +1,37 @@
 "use client";
 
+import { createServerSupabaseClient } from "@/utils/supabase/server";
 import { Button, Input } from "@material-tailwind/react";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 // login <-> sigup 페이지 전환용도 setView
 export default function SignUp({ setView }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confrimationRequired, setConfrimationRequired] = useState(false);
+
+  const supabase = createServerSupabaseClient();
+
+  const signUpMutation = useMutation({
+    mutationFn: async () => {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          // 회원가입이 다 처리 완료 후 아래 url로 redirect
+          emailRedirectTo: "http://localhost:3000/signup/confirm",
+        },
+      });
+      if (data) {
+        setConfrimationRequired(true);
+      }
+
+      if (error) {
+        alert(error.message);
+      }
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -30,12 +55,13 @@ export default function SignUp({ setView }) {
 
         <Button
           onClick={() => {
-            console.log("signup");
+            signUpMutation.mutate();
           }}
+          loading={signUpMutation.isPending}
           color="light-blue"
           className="w-full text-md py-1"
         >
-          가입하기
+          {confrimationRequired ? "메일함을 확인해주세요." : "가입하기"}
         </Button>
       </div>
 
@@ -43,9 +69,9 @@ export default function SignUp({ setView }) {
         이미 계정이 있으신가요?{" "}
         <button
           className="text-light-blue-600 font-bold"
-          onClick={() => setView("SIGNIN")}
+          onClick={() => setView("SIGNUP")}
         >
-          로그인
+          로그인하기
         </button>
       </div>
     </div>

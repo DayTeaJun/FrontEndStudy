@@ -30,20 +30,20 @@ export default function SignIn({ setView }) {
 
         <Button
           onClick={() => {
-            console.log("signin");
+            console.log("signup");
           }}
           color="light-blue"
           className="w-full text-md py-1"
         >
-          로그인
+          가입하기
         </Button>
       </div>
 
       <div className="py-4 w-full text-center max-w-lg border border-gray-400 bg-white">
-        아직 계정이 없으신가요?{" "}
+        이미 계정이 있으신가요?{" "}
         <button
           className="text-light-blue-600 font-bold"
-          onClick={() => setView("SIGNUP")}
+          onClick={() => setView("SIGNIN")}
         >
           로그인
         </button>

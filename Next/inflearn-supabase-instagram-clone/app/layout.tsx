@@ -3,8 +3,6 @@ import "./globals.css";
 
 import { MaterialTailwindThemeProvider } from "@/components/material-tailwind-theme-provider";
 import ReactQueryClientProvider from "@/config/ReactQueryClientProvider";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import RecoilProvider from "@/config/RecoilProvider";
 import MainLayout from "@/components/layouts/MainLayout";
 import AuthPage from "@/components/auth";
@@ -19,7 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = true;
+  const loggedIn = false;
 
   return (
     <html lang="en">
