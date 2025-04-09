@@ -17,15 +17,15 @@ export default function SignIn({ setView }) {
           onChange={(e) => setEmail(e.target.value)}
           label="email"
           type="email"
-          className="w-full rounded-sm"
+          className="w-full"
         />
 
         <Input
           value={password}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           label="password"
           type="password"
-          className="w-full rounded-sm"
+          className="w-full"
         />
 
         <Button
@@ -35,17 +35,17 @@ export default function SignIn({ setView }) {
           color="light-blue"
           className="w-full text-md py-1"
         >
-          가입하기
+          로그인
         </Button>
       </div>
 
       <div className="py-4 w-full text-center max-w-lg border border-gray-400 bg-white">
-        이미 계정이 있으신가요?{" "}
+        아직 계정이 없으신가요?{" "}
         <button
           className="text-light-blue-600 font-bold"
-          onClick={() => setView("SIGNIN")}
+          onClick={() => setView("SIGNUP")}
         >
-          로그인
+          가입하기
         </button>
       </div>
     </div>

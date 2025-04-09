@@ -1,6 +1,6 @@
 "use client";
 
-import { createServerSupabaseClient } from "@/utils/supabase/server";
+import { createBrowserSupabaseClient } from "@/utils/supabase/client";
 import { Button, Input } from "@material-tailwind/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -11,7 +11,7 @@ export default function SignUp({ setView }) {
   const [password, setPassword] = useState("");
   const [confrimationRequired, setConfrimationRequired] = useState(false);
 
-  const supabase = createServerSupabaseClient();
+  const supabase = createBrowserSupabaseClient();
 
   const signUpMutation = useMutation({
     mutationFn: async () => {
@@ -42,15 +42,15 @@ export default function SignUp({ setView }) {
           onChange={(e) => setEmail(e.target.value)}
           label="email"
           type="email"
-          className="w-full rounded-sm"
+          className="w-full"
         />
 
         <Input
           value={password}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           label="password"
           type="password"
-          className="w-full rounded-sm"
+          className="w-full"
         />
 
         <Button
