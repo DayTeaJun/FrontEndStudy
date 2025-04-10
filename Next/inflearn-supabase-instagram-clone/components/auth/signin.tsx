@@ -11,6 +11,26 @@ export default function SignIn({ setView }) {
   const [password, setPassword] = useState("");
   const supabase = createBrowserSupabaseClient();
 
+  const signInWithKakao = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "kakao",
+      options: {
+        // 카카오 로그인 후 카카오 서버에서 다시 현재 사이트로 redirect
+        redirectTo: process.env.NEXT_PUBLIC_VERCEL_URL
+          ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/auth/callback`
+          : "http://localhost:3000/auth/callback",
+      },
+    });
+
+    if (data) {
+      console.log(data);
+    }
+
+    if (error) {
+      console.log(error);
+    }
+  };
+
   const signInMutation = useMutation({
     mutationFn: async () => {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -58,6 +78,15 @@ export default function SignIn({ setView }) {
           className="w-full text-md py-1"
         >
           로그인
+        </Button>
+
+        <Button
+          className="w-full mt-1 text-[14px] rounded-md py-1 bg-yellow-700"
+          onClick={() => {
+            signInWithKakao();
+          }}
+        >
+          카카오 로그인
         </Button>
       </div>
 
