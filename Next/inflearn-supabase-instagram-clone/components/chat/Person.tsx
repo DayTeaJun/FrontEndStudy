@@ -20,7 +20,7 @@ export default function Person({
 }) {
   return (
     <div
-      className={`gap-4 min-w-60 ${
+      className={`gap-4 w-full min-w-60 ${
         onClick && "cursor-pointer"
       } flex items-center p-4 ${!onChatScreen && isActive && "bg-light-blue-50"}
        ${!onChatScreen && !isActive && "bg-gray-50"}  
