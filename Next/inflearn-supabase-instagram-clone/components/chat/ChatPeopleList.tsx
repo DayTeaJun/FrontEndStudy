@@ -24,7 +24,6 @@ export default function ChatPeopleList({ loggedInUser }) {
     queryFn: async () => {
       const allUsers = await getAllUser();
 
-      console.log(allUsers);
       return allUsers.filter((user) => user.id !== loggedInUser.id);
     },
   });

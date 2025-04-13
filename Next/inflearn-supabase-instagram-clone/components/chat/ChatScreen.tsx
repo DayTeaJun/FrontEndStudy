@@ -18,7 +18,6 @@ export default function ChatScreen() {
   return selectedUserQuery !== null ? (
     <div className="w-full h-screen flex flex-col">
       {/* Active 유저 영역 */}
-
       <Person
         index={0}
         isActive={false}
@@ -27,7 +26,6 @@ export default function ChatScreen() {
         onlineAt={new Date().toISOString()}
         onChatScreen={true}
       ></Person>
-
       {/* 채팅 영역 */}
       <div className="flex-1 flex flex-col w-full p-4 gap-3">
         <Message isFromMe={true} message={"안녕하세요."} />
@@ -37,7 +35,6 @@ export default function ChatScreen() {
         <Message isFromMe={false} message={"반갑습니다."} />
         <Message isFromMe={false} message={"반갑습니다."} />
       </div>
-
       {/* 채팅창 영역 */}
       <div className="flex">
         <input
