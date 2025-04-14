@@ -15,7 +15,7 @@ export default function ChatPeopleList({ loggedInUser }) {
     selectedUserIdState
   );
 
-  const selectedUserIndex = useRecoilState<null | number>(
+  const [selectedUserIndex, setSelectedUserIndex] = useRecoilState(
     selectedUserIndexState
   );
 
@@ -38,7 +38,7 @@ export default function ChatPeopleList({ loggedInUser }) {
               setSelectedUserId(user.id);
               setSelectedUserIndex(index);
             }}
-            index={selectedUserIndex}
+            index={index}
             isActive={selectedUserId === user.id}
             name={user.email?.split("@")[0]}
             userId={user.id}
