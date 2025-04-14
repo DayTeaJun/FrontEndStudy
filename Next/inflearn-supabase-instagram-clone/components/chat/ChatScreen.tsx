@@ -14,7 +14,7 @@ import {
   getUserById,
   sendMessage,
 } from "@/actions/chatActions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createBrowserSupabaseClient } from "@/utils/supabase/client";
 
 export default function ChatScreen() {
@@ -22,6 +22,8 @@ export default function ChatScreen() {
   const selectedUserIndex = useRecoilValue(selectedUserIndexState);
   const [message, setMessage] = useState<string>("");
   const supabase = createBrowserSupabaseClient();
+
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   const selectedUserQuery = useQuery({
     queryKey: ["user", selectedUserId],
@@ -71,6 +73,10 @@ export default function ChatScreen() {
     };
   }, []);
 
+  useEffect(() => {
+    messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [getAllMessagesQuery.data]);
+
   return selectedUserQuery.data !== null ? (
     <div className="w-full h-screen flex flex-col">
       {/* Active 유저 영역 */}
@@ -91,6 +97,7 @@ export default function ChatScreen() {
             message={message.message}
           />
         ))}
+        <div ref={messageEndRef}></div>
       </div>
       {/* 채팅창 영역 */}
       <div className="flex">
