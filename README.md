@@ -21,5 +21,4 @@
 
 ## Next
 ### [유튜브-뮤직-클론코딩](Next/yt-music-clone-next)
-### [수파베이스-인프런](Next/supabase/infrearn
--supabase)
+### [수파베이스-인프런](Next/supabase/infrearn-supabase)
